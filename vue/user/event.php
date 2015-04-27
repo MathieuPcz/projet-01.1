@@ -113,6 +113,7 @@ if(!empty($_SESSION['user'])){
 		</div>
 		<input type="file" id="affiche">
 		<?php include '../include/formEvent.php'; ?>
+		<?php include '../include/modifEvent.php'; ?>
 		
 		<!-- <footer>
 			<a href="#">À propos</a> <a href="#">Aide</a><a href="#">État du service</a> <a href="#">Offres d'emploi</a> <a href="#">Conditions</a> <a href="#">Confidentialité</a> <a href="#">Informations sur la publicité</a> <a href="#">Médias</a> <a href="#"> Développeurs</a> © 2015 Before-After
@@ -135,6 +136,11 @@ if(!empty($_SESSION['user'])){
 				});
 				$('#annulEvent').click(function(){
 					$('#creatEvent').fadeOut();
+					$('.container').fadeIn(800);
+				});
+
+				$('#annulModifEvent').click(function(){
+					$('#modifierEvent').fadeOut();
 					$('.container').fadeIn(800);
 				});
 		});

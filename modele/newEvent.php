@@ -239,8 +239,97 @@ class Event{
 								'id'=>$this->_id));
 	}
 
+		public function modifEvent($id_event){
+		$this->_id = $id_event;
+		$this->_typeEvent = $_POST['typeEvent'];
+		$this->_heure_deb_event = $_POST['heure_deb_event'];
+		$this->_access = $_POST['access'];
+		$this->_event = htmlspecialchars(trim(ucfirst($_POST['event'])));
+		$this->_nameEvent = htmlspecialchars(trim(ucfirst($_POST['nameEvent'])));
+		$this->_dateEvent = htmlspecialchars(trim(ucfirst($_POST['dateEvent'])));
+		$this->_lieuEvent = htmlspecialchars(trim(ucfirst($_POST['lieuEvent'])));
+		$this->_place_user = htmlspecialchars(trim(ucfirst($_POST['place_user'])));
+		$this->_event_description = htmlspecialchars(trim(ucfirst($_POST['event_description'])));
+
+		$modif=$this->_bdd->prepare('UPDATE event SET typeEvent=:typeEvent,heure_deb_event=:heure_deb_event,access=:access,event=:event,nameEvent=:nameEvent,dateEvent=:dateEvent,lieuEvent=:lieuEvent,place_user=:place_user,event_description=:event_description WHERE id=:id' );
+		$modif->execute(array('typeEvent'=>$this->_typeEvent,
+								'heure_deb_event'=>$this->_heure_deb_event,
+								'access'=>$this->_access,
+								'event'=>$this->_event,
+								'nameEvent'=>$this->_nameEvent,
+								'dateEvent'=>$this->_dateEvent,
+								'lieuEvent'=>$this->_lieuEvent,
+								'place_user'=>$this->_place_user,
+								'event_description'=>$this->_event_description,
+								'id'=>$this->_id));
+	}
+	public function selectHeure_deb_eventById($id_event){
+
+		$this->_id_event = $id_event;
+		$type='Before';
+		$select = $this->_bdd -> prepare('SELECT heure_deb_event FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
+		$select->execute(array('id_event'=>$this->_id_event,
+								'typeEvent'=>$type));
+		$result = $select -> fetch();
+		$this->_heure_deb_event = $result['heure_deb_event'];
+
+		return $this->_heure_deb_event;
+	}
+	public function selectNameEventByid($id_event){
+
+		$this->_id_event = $id_event;
+		$type='Before';
+		$select = $this->_bdd -> prepare('SELECT nameEvent FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
+		$select->execute(array('id_event'=>$this->_id_event,
+								'typeEvent'=>$type));
+		$result = $select -> fetch();
+		$this->_nameEvent = $result['nameEvent'];
+
+		return $this->_nameEvent;
+	}
+
+
+	public function selectDateEventByid($id_event){
+
+		$this->_id_event = $id_event;
+		$type='Before';
+		$select = $this->_bdd -> prepare('SELECT dateEvent FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
+		$select->execute(array('id_event'=>$this->_id_event,
+								'typeEvent'=>$type));
+		$result = $select -> fetch();
+		$this->_dateEvent = $result['dateEvent'];
+
+		return $this->_dateEvent;
+	}
+
+		public function verifIMGById($id_event){
+
+		$this->_id = $id_event;		$type='Before';
+		$select = $this->_bdd -> prepare('SELECT imgEvent FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
+		$select->execute(array('id_event'=>$this->_id_event,
+								'typeEvent'=>$type));
+		$result = $select -> fetch();
+		
+
+		if(!empty($result['imgEvent'])){
+			$this->_imgEvent = $result['imgEvent'];
+			return '../images/event/'.$this->_imgEvent.'"';
+		}else{
+			return '../images/logo-header.png" class="imgDefault"';
+		}
+
+	}
+
+		public function selectIdById_event($id_event){
+			$this->_id_event = $id_event;
+			$select = $this->_bdd -> prepare('SELECT id FROM event WHERE id_event=:id_event');
+			$select->execute(array('id_event'=>$this->_id_event));
+			$result = $select -> fetch();
+			$this->_id = $result['id'];
+
+			return $this->_id;
+		}
 }
 
 
-
- ?>
+?>

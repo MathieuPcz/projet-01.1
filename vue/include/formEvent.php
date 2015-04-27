@@ -29,7 +29,7 @@
 					 ?>
 				</select>
 				<select name="access" id="access">
-					<option value="0">Autoriser :</option>
+					<option value="0">Acceptation :</option>
 					<option value="manuelle">Manuellement</option>
 					<option value="automatique">Automatiquement</option>
 				</select>

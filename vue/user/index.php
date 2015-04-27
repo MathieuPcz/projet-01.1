@@ -5,7 +5,8 @@ if(!empty($_SESSION['user'])){
 	include_once '../../controler/bdd.php';
 	include_once '../../modele/register.php';
 	$user = new User($bdd);
-
+	include_once '../../modele/newEvent.php';
+	$event= new Event($bdd);
 }else{
 	header('Location: ../../index.php'); 
 }
@@ -58,12 +59,16 @@ if(!empty($_SESSION['user'])){
 					<h2>Les befores</h2>
 				</div>
 				<div id="before">
-					<?php  for ($i=0; $i < 5 ; $i++) { 
-						echo '<div class="before">
-								<img src="../images/bunker.jpg" alt="before">
-								<h3>Nom du before</h3>
-								<strong>Date et heure</strong>
-							</div>';
+					<?php 
+					$count = $event->countEvent()-1;
+					for ($i=$count; $i > 0 ; $i--) { 
+						$id_event = $i;
+						$id=$event->selectIdById_event($id_event);
+						echo '<a href="event.php?id='.$id.'"><div class="before">
+								<img src="'.$event->verifIMGById($id_event).' alt="after">
+								<h3>'.$event->selectNameEventById($id_event).'</h3>
+								<strong>Le '.$event->selectDateEventById($id_event).' à '.$event->selectHeure_deb_eventById($id_event).'</strong>
+							</div></a>';
 					} ?>
 					<strong></strong>
 				</div>

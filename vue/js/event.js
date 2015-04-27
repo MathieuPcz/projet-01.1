@@ -10,7 +10,8 @@ $(document).ready(function(){
 		var choix = $('#choix').val();
 
 		if(choix == '1'){
-			alert('1');
+			$('.container').fadeOut();
+			$('#modifierEvent').fadeIn(800);
 		}else if(choix == '2'){
 			$('#affiche').click();
 			$('#affiche').change(function() {
@@ -71,6 +72,42 @@ $(document).ready(function(){
 				} else { 
 					$('#deleteEvent').html(data).fadeIn(1000);
 					$('#deleteEvent').css('color','rgb(230,53,49)');
+					
+				}
+			}
+		});
+	})
+
+
+		$('#modifierContenuEvent').click(function(){
+		
+		$.ajax({
+		type: "post",
+		url: "../../controler/modifContenuEvent.php",
+		data: {
+			'id_event' : url,
+			'typeEvent' : $('#modif_typeEvent').val(),
+			'heure_deb_event' : $('#modif_heure_deb_event').val(),
+			'access' : $('#modif_access').val(),
+			'event' : $('#modif_event').val(),
+			'nameEvent' : $('#modif_nameEvent').val(),
+			'dateEvent' : $('#modif_dateEvent').val(),
+			'lieuEvent' : $('#modif_lieuEvent').val(),
+			'event_description' : $('#modif_event_description').val(),
+			'place_user' : $('#modif_place_user').val()
+			},
+			beforeSend: function(){
+					$('#infoModifEvent').html("<strong>Modification en cours...</strong>").fadeIn(400);
+					$('#infoModifEvent').css('color','#A5CBFF');
+				},
+			success: function(data){
+				if(data == "success"){
+				$('#infoModifEvent').html("<strong>Modification en cours...</strong>").fadeIn(400);
+				window.location = "../user/event.php?id="+url;
+				
+				} else { 
+					$('#infoModifEvent').html(data).fadeIn(1000);
+					$('#infoModifEvent').css('color','rgb(230,53,49)');
 					
 				}
 			}
