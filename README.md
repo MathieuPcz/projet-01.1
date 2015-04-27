@@ -1,2 +1,2 @@
-# projet-01.1
-Mise à jours visuel du projet 01
+# projet-01
+projet personnel - 01
