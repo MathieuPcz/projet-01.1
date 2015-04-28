@@ -1,0 +1,54 @@
+.container{
+	width: 76%;
+	padding: 5%;
+	padding-left: 1%;
+}
+.container h2{
+	padding: 1%;
+	padding-top: 3%;
+}
+#imgProfil{
+	moz-box-shadow: 10px 10px 15px 0px black;
+	-webkit-box-shadow: 10px 10px 15px 0px black;
+	-o-box-shadow: 10px 10px 15px 0px black;
+	box-shadow: 10px 10px 15px 0px black;
+	width: 40%;
+	margin-top: 5%;
+	border-radius: 5px;
+	overflow: hidden;
+	float: left;
+	min-height: 200px;
+	background-color: rgba(0,0,0,0.8);
+	text-align: center;
+}
+#imgProfil img{
+	width: 100%;
+	margin-top: 10%;
+}
+#imgProfil p{
+	background-color: #000F1C;
+	padding: 10px;
+}
+#infoUser{
+	moz-box-shadow: 10px 10px 15px 0px black;
+	-webkit-box-shadow: 10px 10px 15px 0px black;
+	-o-box-shadow: 10px 10px 15px 0px black;
+	box-shadow: 10px 10px 15px 0px black;
+	width: 50%;
+	margin-top: 5%;
+	border-radius: 5px;
+	overflow: hidden;
+	float: right;
+	background-color: #000F1C;
+}
+#infoUser h2{
+	text-align: center;
+}
+#button button{
+	float: left;
+	margin-left: 5%;
+}   
+#button select{
+	float: right;
+	margin-right: 5%;
+}

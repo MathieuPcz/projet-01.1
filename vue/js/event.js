@@ -113,4 +113,53 @@ $(document).ready(function(){
 			}
 		});
 	})
+
+	$('#participe').click(function(){
+					$.ajax({
+					type: "post",
+					url: "../../controler/verifParticipant.php",
+					data: {
+						'id_event' : url
+						},
+						beforeSend: function(){
+								$('#infoParticipation').html("<strong>Enregistrement en cours...</strong>").fadeIn(400);
+								$('#infoParticipation').css('color','#A5CBFF');
+							},
+						success: function(data){
+							if(data == "success"){
+								$('#infoParticipation').html('Inscription réussie, elle sera effective dès lors que l\'hôte de cet événement vous aura accepté !');
+								window.location = "event.php?id="+url;
+							
+							} else { 
+								$('#infoParticipation').html(data).fadeIn(1000);
+								$('#infoParticipation').css('color','rgb(230,53,49)');
+								
+							}
+						}
+					});
+				})
+	$('#declineEvent').click(function(){
+					$.ajax({
+					type: "post",
+					url: "../../controler/declineEvent.php",
+					data: {
+						'id_event' : url
+						},
+						beforeSend: function(){
+								$('#infoParticipation').html("<strong>Modification en cours...</strong>").fadeIn(400);
+								$('#infoParticipation').css('color','#A5CBFF');
+							},
+						success: function(data){
+							if(data == "success"){
+								$('#infoParticipation').html('Vous n\'êtes maintenant plus inscrit !').delay(1000);
+								window.location = "event.php?id="+url;
+							
+							} else { 
+								$('#infoParticipation').html(data).fadeIn(1000);
+								$('#infoParticipation').css('color','rgb(230,53,49)');
+								
+							}
+						}
+					});
+				})
 })

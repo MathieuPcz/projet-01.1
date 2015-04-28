@@ -7,44 +7,46 @@ if(!empty($_SESSION['user'])){
 	$user = new User($bdd);
 	include_once '../../modele/newEvent.php';
 	$event = new Event($bdd);
+	include_once '../../modele/participant.php';
+	$participant = new Participant($bdd);
 	$id_event = $_GET['id'];
 
 }else{
 	header('Location: ../../index.php'); 
 }
- ?>
+?>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Before | After</title>
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../css/event.css">
-		<link rel="stylesheet" href="../css/newEvent.css">
-	</head>
-	<body>
-		<header>
-			<div id="mainMenu">
-				<a href="index.php"><img src="../images/logo-header.png" alt="logo"></a>
-				<nav>
-					<ul>
-						<li class="menu"><a href="#"><?php echo $user->selectFirstname($user_id);  ?></a></li>
-						<li class="menu"><a href="#">Evénements</a>
-							<ul class="menu_ul">
-								<li class="sousMenu"><a href="#" id="newEvent">Créer</a></li>
-								<li class="sousMenu"><a href="#">Before-After</a></li>
-							</ul>
-						</li>
-						<li class="menu"><a href="../../controler/disconnect.php">Déconnexion</a></li>
-					</ul>
-				</nav>
-			</div>
-			<div id="couverture">
-	
-			</div>
-		</header>
-		<div class="tchat">
-			<ul>
+<head>
+	<meta charset="utf-8">
+	<title>Before | After</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/event.css">
+	<link rel="stylesheet" href="../css/newEvent.css">
+</head>
+<body>
+	<header>
+		<div id="mainMenu">
+			<a href="index.php"><img src="../images/logo-header.png" alt="logo"></a>
+			<nav>
+				<ul>
+					<li class="menu"><?php echo '<a href="user.php?id='.$_SESSION['user'].'">';  ?><?php echo $user->selectFirstname($user_id);  ?></a></li>
+					<li class="menu"><a href="#">Evénements</a>
+						<ul class="menu_ul">
+							<li class="sousMenu"><a href="#" id="newEvent">Créer</a></li>
+							<li class="sousMenu"><a href="#">Before-After</a></li>
+						</ul>
+					</li>
+					<li class="menu"><a href="../../controler/disconnect.php">Déconnexion</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div id="couverture">
+
+		</div>
+	</header>
+	<div class="tchat">
+		<ul>
 				<!-- <li class="menuTchat"><a href="#" class="TchatCategories">Amis</a>
 					<ul>
 						<li class="tchatPeople"><a href="#" class="people">Mathieu</a></li>
@@ -54,56 +56,106 @@ if(!empty($_SESSION['user'])){
 				</li>
 				
 				<li class="menuTchat"><a href="#" class="TchatCategories">Public</a></li>
-							</ul> -->
+			</ul> -->
 		</div>
 		<div class="container">
-				<div id="baniere">
-					<div id="imageBaniere"><?php echo $event->verifIMG($id_event) ?></div>
-					<div id="infoCreateur">
-						<p>Créé le : <?php echo $event->selectRegister_date($id_event); ?></p>
-						<strong>Par : <?php 
+			<div id="baniere">
+				<div id="imageBaniere"><?php echo $event->verifIMG($id_event) ?></div>
+				<div id="infoCreateur">
+					<p>Créé le : <?php echo $event->selectRegister_date($id_event); ?></p>
+					<strong>Par : <?php 
 						$user_id = $event->selectId_user($id_event);
 						echo $user->selectFirstname($user_id); ?> <?php echo $user->selectName($user_id); ?></strong>
 					</div>
 				</div>
 				<div id="info_event">
 					<h2><?php echo $event->selectNameEvent($id_event); ?></h2>
-					<button id="participe">Participer</button>
 					<?php 
-						if($event->selectId_user($id_event)==$_SESSION['user']){
-							echo '<select name="choix" id="choix">
+					$id_user = $_SESSION['user'];
+					$id_event = $_GET['id'];
+					if($event->selectId_user($id_event)==$_SESSION['user']){
+						echo '<select name="choix" id="choix">
 						<option value="1">Modifier</option>
 						<option value="2">Modifier l\'image</option>
 						<option value="3">Supprimer</option>
 					</select><button id="validModif">Valider</button>';
-						}
-					 ?>
-					 <div id="infoModif"></div>
-					<div class="info">
-						<p>Type : <strong><?php echo $event->selectTypeEvent($id_event); ?></strong></p>
+				}elseif($id_user != $participant->verifParticipation($id_user,$id_event)){
+					echo '<button id="participe">Participer</button>';
+				}else{
+					echo '<span id="statusParticipation">Vous êtes en file d\'attente</span><button type="button" id="declineEvent">Décliner</button>';
+				}
+				?>
+				<div id="infoModif"></div>
+				<div id="infoParticipation"></div>
+				<div class="info">
+					<p>Type : <strong><?php echo $event->selectTypeEvent($id_event); ?></strong></p>
 					<p>Se déroulera le <strong><?php echo $event->selectDateEvent($id_event); ?> à <?php echo $event->selectHeure_deb_event($id_event); ?></strong></p>
 					<p>Acceptation :<strong> <?php echo $event->selectAccess($id_event); ?></strong></p>
 					<p><?php echo $event->selectTypeEvent($id_event); ?> de l'événement <strong><?php echo $event->selectEvent($id_event); ?></strong></p>
 					<p>Plade disponnible au public : <strong><?php echo $event->selectPlaceUser($id_event); ?></strong></p><br>
+				</div>
+				<p><strong>Personnes dans la file d'attente : </strong></p>
+				<p> 
+					<div id="fileAttente"><?php 
+						$id_event = $_GET['id'];
+						$status = 0;
+						$nbParticipant = $participant -> countParticipant($id_event,$status);
+						echo $nbParticipant;
+						?>
 					</div>
-					<p><strong>Personnes dans la file d'attente : </strong></p>
-					<p> 
-					<?php for ($i=0; $i <10 ; $i++) { 
-						echo '<img src="../images/profil.jpg" alt="utilisateur'.$i.'" width="70px" height="70px">';
-					} ?>
+					<?php 
+						$id_event = $_GET['id'];
+							$status=0;
+							$select = $bdd -> prepare('SELECT id_user FROM participant WHERE id_event=:id_event AND status=:status');
+							$select -> execute(array('id_event'=>$id_event,
+													'status'=>$status));
+							$i=0;
+							while($result = $select->fetch()){
+								if($i>10){
+									exit();
+								}else{
+								$user_id = $result['id_user'];
+								echo '<div class="avatar"><a target="_blank" href="user.php?id='.$user_id.'">'.$user->selectAvatar($user_id).'</a></div>';
+								}
+								$i++;
+							}	
+					
+					?>
 					</p>
-					<br>	
-				</div>
-				<div id="description">
-					<p><strong>Description : </strong><?php echo $event->selectDescription($id_event); ?></p>
-					<br>
-					<p><strong>Participants actuels :</strong></p>
-					<p>
-						<?php for ($i=0; $i <10 ; $i++) { 
-						echo '<img src="../images/profil.jpg" alt="utilisateur'.$i.'" width="70px" height="70px">';
-					} ?>
-					</p>
-				</div>
+				<br>	
+			</div>
+			<div id="description">
+				<p><strong>Description : </strong><?php echo $event->selectDescription($id_event); ?></p>
+				<br>
+				<p><strong>Participants actuels :</strong></p>
+				<p>
+					<div id="nbParticipant">
+						<?php 
+						$id_event = $_GET['id'];
+						$status = 1;
+						$nbParticipant = $participant -> countParticipant($id_event,$status);
+						echo $nbParticipant;
+						?>
+					</div>
+					<?php 
+					$id_event = $_GET['id'];
+					$status=1;
+					$select = $bdd -> prepare('SELECT id_user FROM participant WHERE id_event=:id_event AND status=:status');
+					$select -> execute(array('id_event'=>$id_event,
+											'status'=>$status));
+					$i=0;
+					while($result = $select->fetch()){
+						if($i>10){
+							exit();
+						}else{
+						$user_id = $result['id_user'];
+						echo '<div class="avatar"><a target="_blank" href="user.php?id='.$user_id.'">'.$user->selectAvatar($user_id).'</a></div>';
+						}
+						$i++;
+					}	
+					?>
+				</p>
+			</div>
 		</div>
 		<div id="delete">
 			<strong>Votre événement va être supprimé, voulez vous continuer ?</strong>
@@ -143,7 +195,8 @@ if(!empty($_SESSION['user'])){
 					$('#modifierEvent').fadeOut();
 					$('.container').fadeIn(800);
 				});
-		});
+
+			});
 		</script>
 	</body>
-</html>
+	</html>

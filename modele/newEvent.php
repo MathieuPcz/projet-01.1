@@ -55,7 +55,7 @@ class Event{
 		$this->_dateEvent = htmlspecialchars(trim(ucfirst($_POST['dateEvent'])));
 		$this->_lieuEvent = htmlspecialchars(trim(ucfirst($_POST['lieuEvent'])));
 		$this->_place_user = htmlspecialchars(trim(ucfirst($_POST['place_user'])));
-		$this->_event_description = htmlspecialchars(trim(ucfirst($_POST['event_description'])));
+		$this->_event_description = nl2br(htmlspecialchars(trim(ucfirst($_POST['event_description']))));
 
 
 		$insert = $this->_bdd->prepare('INSERT INTO event (typeEvent,heure_deb_event,access,event,nameEvent,dateEvent,lieuEvent,place_user,id_event,event_description,id_user,register_date) VALUES (:typeEvent,:heure_deb_event,:access,:event,:nameEvent,:dateEvent,:lieuEvent,:place_user,:id_event,:event_description,:id_user,NOW())');
@@ -266,10 +266,8 @@ class Event{
 	public function selectHeure_deb_eventById($id_event){
 
 		$this->_id_event = $id_event;
-		$type='Before';
-		$select = $this->_bdd -> prepare('SELECT heure_deb_event FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
-		$select->execute(array('id_event'=>$this->_id_event,
-								'typeEvent'=>$type));
+		$select = $this->_bdd -> prepare('SELECT heure_deb_event FROM event WHERE id_event=:id_event ');
+		$select->execute(array('id_event'=>$this->_id_event));
 		$result = $select -> fetch();
 		$this->_heure_deb_event = $result['heure_deb_event'];
 
@@ -278,10 +276,8 @@ class Event{
 	public function selectNameEventByid($id_event){
 
 		$this->_id_event = $id_event;
-		$type='Before';
-		$select = $this->_bdd -> prepare('SELECT nameEvent FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
-		$select->execute(array('id_event'=>$this->_id_event,
-								'typeEvent'=>$type));
+		$select = $this->_bdd -> prepare('SELECT nameEvent FROM event WHERE id_event=:id_event ');
+		$select->execute(array('id_event'=>$this->_id_event));
 		$result = $select -> fetch();
 		$this->_nameEvent = $result['nameEvent'];
 
@@ -292,22 +288,30 @@ class Event{
 	public function selectDateEventByid($id_event){
 
 		$this->_id_event = $id_event;
-		$type='Before';
-		$select = $this->_bdd -> prepare('SELECT dateEvent FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
-		$select->execute(array('id_event'=>$this->_id_event,
-								'typeEvent'=>$type));
+		$select = $this->_bdd -> prepare('SELECT dateEvent FROM event WHERE id_event=:id_event ');
+		$select->execute(array('id_event'=>$this->_id_event));
 		$result = $select -> fetch();
 		$this->_dateEvent = $result['dateEvent'];
 
 		return $this->_dateEvent;
 	}
 
+		public function selectTypeEventByid($id_event){
+
+		$this->_id_event = $id_event;
+		$select = $this->_bdd -> prepare('SELECT typeEvent FROM event WHERE id_event=:id_event ');
+		$select->execute(array('id_event'=>$this->_id_event));
+		$result = $select -> fetch();
+		$this->_typeEvent = $result['typeEvent'];
+
+		return $this->_typeEvent;
+	}
+
 		public function verifIMGById($id_event){
 
-		$this->_id = $id_event;		$type='Before';
-		$select = $this->_bdd -> prepare('SELECT imgEvent FROM event WHERE id_event=:id_event AND typeEvent=:typeEvent');
-		$select->execute(array('id_event'=>$this->_id_event,
-								'typeEvent'=>$type));
+		$this->_id = $id_event;
+		$select = $this->_bdd -> prepare('SELECT imgEvent FROM event WHERE id_event=:id_event');
+		$select->execute(array('id_event'=>$this->_id_event));
 		$result = $select -> fetch();
 		
 
@@ -322,7 +326,7 @@ class Event{
 
 		public function selectIdById_event($id_event){
 			$this->_id_event = $id_event;
-			$select = $this->_bdd -> prepare('SELECT id FROM event WHERE id_event=:id_event');
+			$select = $this->_bdd -> prepare('SELECT id FROM event WHERE id_event=:id_event ORDER BY register_date DESC');
 			$select->execute(array('id_event'=>$this->_id_event));
 			$result = $select -> fetch();
 			$this->_id = $result['id'];

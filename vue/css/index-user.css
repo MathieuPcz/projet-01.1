@@ -12,7 +12,7 @@
 		background-color: #000F1C;
 	vertical-align: top;
 	width: 16%;
-	height: 180px;
+	height: 200px;
 	text-align: center;
 	margin: 20px;
 	moz-box-shadow: 10px 10px 15px 0px black;
@@ -26,6 +26,11 @@
 	width: 100%;
 	border-radius: 5px;
 	z-index: -10;
+}
+.imageBefore{
+	height: 150px;
+	overflow: hidden;
+	width: 100%;
 }
 .imgDefault{
 	height: 100px;

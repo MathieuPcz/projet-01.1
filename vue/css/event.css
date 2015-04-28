@@ -115,3 +115,37 @@
 	color:#A1C6FD;
 	font-weight: bold;
 }
+#nbParticipant,#fileAttente{
+	margin-top: 1%;
+	padding: 25px;
+	padding-right: 0;
+	padding-left: 0;
+	width: 70px;
+	background-color: rgba(0,0,0,0.8);
+	text-align: center;
+	display: inline-block;
+
+}
+#description img,.avatar{
+	display: inline-block;
+	vertical-align: top;
+}
+#statusParticipation{
+	color:#A1C6FD;
+	font-weight: bold;
+}
+#imageBaniere{
+	max-height: 300px;
+	overflow: hidden;
+	width: 100%;
+}
+.avatar{
+	background-color: rgba(0,0,0,0.8);
+}
+.avatar img{
+	width: 70px;
+	height: 70px;
+}
+#declineEvent{
+	float: right;
+}

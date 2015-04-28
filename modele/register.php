@@ -41,8 +41,8 @@ class User{
 		$select->execute(array('email' => $this->_email));
 		$result=$select->fetch();
 
-		$this->password = $result['password'];
-		return $this->password;
+		$this->_password = $result['password'];
+		return $this->_password;
 	}
 
 	public function insertUser(){
@@ -70,9 +70,9 @@ class User{
 		$select = $this->_bdd -> prepare('SELECT id FROM user WHERE email=:email');
 		$select->execute(array('email'=>$this->_email));
 		$result = $select -> fetch();
-		$this_id = $result['id'];
+		$this->_id = $result['id'];
 
-		return $this_id;
+		return $this->_id;
 	}
 
 	public function selectName($user_id){
@@ -81,9 +81,9 @@ class User{
 		$select = $this->_bdd -> prepare('SELECT name FROM user WHERE id=:id');
 		$select->execute(array('id'=>$this->_id));
 		$result = $select -> fetch();
-		$this_name = $result['name'];
+		$this->_name = $result['name'];
 
-		return $this_name;
+		return $this->_name;
 	}
 
 	public function selectFirstname($user_id){
@@ -92,9 +92,24 @@ class User{
 		$select = $this->_bdd -> prepare('SELECT firstname FROM user WHERE id=:id');
 		$select->execute(array('id'=>$this->_id));
 		$result = $select -> fetch();
-		$this_firstname = $result['firstname'];
+		$this->_firstname = $result['firstname'];
 
-		return $this_firstname;
+		return $this->_firstname;
+	}
+
+		public function selectAvatar($user_id){
+		$this->_id = $user_id;
+
+		$select = $this->_bdd -> prepare('SELECT avatar FROM user WHERE id=:id');
+		$select->execute(array('id'=>$this->_id));
+		$result = $select -> fetch();
+		$this->_avatar = $result['avatar'];
+
+		if(!empty($this->_avatar)){
+			return '	<img src="../images/user/'.$this->_avatar.'"  alt="avatar">';
+		}else{
+			return '<img src="../images/logo-header.png"  alt="no-avatar">';
+		}
 	}
 
 }

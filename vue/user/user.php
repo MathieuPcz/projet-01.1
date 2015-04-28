@@ -5,8 +5,7 @@ if(!empty($_SESSION['user'])){
 	include_once '../../controler/bdd.php';
 	include_once '../../modele/register.php';
 	$user = new User($bdd);
-	include_once '../../modele/newEvent.php';
-	$event= new Event($bdd);
+	$id_user = $_GET['id'];
 }else{
 	header('Location: ../../index.php'); 
 }
@@ -17,7 +16,7 @@ if(!empty($_SESSION['user'])){
 		<meta charset="utf-8">
 		<title>Before | After</title>
 		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../css/index-user.css">
+		<link rel="stylesheet" href="../css/user.css">
 		<link rel="stylesheet" href="../css/newEvent.css">
 	</head>
 	<body>
@@ -55,24 +54,23 @@ if(!empty($_SESSION['user'])){
 							</ul> -->
 		</div>
 		<div class="container">
-				<div class="content-titre">
-					<h2>Les befores-After</h2>
+				<div id="imgProfil"><?php echo $user->selectAvatar($id_user); ?><p>Inscrit depuis le Date</p></div>
+				<div id="infoUser">
+				<h2><?php echo $user->selectFirstname($id_user).' '.$user->selectName($id_user); ?></h2>
+				<div id="button">
+					<button>Ajouter</button>
+					<select  id="modifierProfil">
+						<option value="0">Modifier</option>
+						<option value="1">Modifier l'image de profil</option>
+						<option value="2">Supprimer Compte</option>
+					</select>
 				</div>
-				<div id="before">
-					<?php 
-					$count = $event->countEvent()-1;
-					for ($i=$count; $i > 0 ; $i--) { 
-						$id_event = $i;
-						$id=$event->selectIdById_event($id_event);
-						echo '<a href="event.php?id='.$id.'"><div class="before">
-								<div class="imageBefore"><img src="'.$event->verifIMGById($id_event).' alt="after"></div>
-								<h3>'.$event->selectTypeEventById($id_event).' - '.$event->selectNameEventById($id_event).'</h3>
-								<strong>Le '.$event->selectDateEventById($id_event).' à '.$event->selectHeure_deb_eventById($id_event).'</strong>
-							</div></a>';
-					} ?>
-					<strong></strong>
+				<h3>Informations personnelles :</h3>
+				<p>Situations amoureuse : non-renseigné</p>
+				<p>Habite : non-rensigné</p>
+				<p>Age : non-renseigné</p>
+
 				</div>
-	
 		</div>
 		<?php include '../include/formEvent.php'; ?>
 		<script type="text/javascript" src="../js/jquery.js"></script>

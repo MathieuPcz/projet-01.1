@@ -4,7 +4,8 @@ include_once 'bdd.php';
 include_once '../modele/newEvent.php';
 $newEvent = new Event($bdd);
 $id_user = $_SESSION['user'];
-
+include_once '../modele/participant.php';
+$participant = new Participant($bdd);
 $typeEvent = $_POST['typeEvent'];
 $heure_deb_event = $_POST['heure_deb_event'];
 $access = $_POST['access'];
@@ -36,6 +37,9 @@ if($typeEvent == "0"){
 		}elseif(is_numeric($place_user) && $place_user>=0){
 			$newEvent->countEvent();
 			$newEvent->insertEvent($id_user);
+			$status = 1;
+			$id_event = $participant->selectLastId();
+			$participant->addParticipant($id_user,$id_event,$status);
 			echo $newEvent->redirection();
 		}else{
 			echo "Le nombre de place disponnible doit être supérieur ou égale à 0";
