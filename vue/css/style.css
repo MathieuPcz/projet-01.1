@@ -47,6 +47,10 @@ h1,h2,h3{
 ul{
 	list-style-type: none;
 }
+#mainMenu nav img{
+	height: 30px;
+	margin-top: -5px;
+}
 .menu{
 	display: inline-block;
 	height: 50px;
@@ -54,6 +58,8 @@ ul{
 .menu a{
 	padding: 16px;
 	margin-right: -5px;
+	font-weight: bold;
+
 }
 .menu ul{
 	position: absolute;
@@ -66,10 +72,11 @@ ul{
 	background-color: #000F1C;
 	display: block;
 	padding: 16px;
+	font-weight: bold;
+	
 }
 #mainMenu nav a:hover{
-	background-color: #2AACD9;
-	font-weight: bold;
+	color: #9bbef3;
 }
 #mainMenu nav a:active{
 	background-color: #ed4040;
@@ -129,7 +136,7 @@ footer{
 footer a{
 	margin-right: 2%;
 }
-button,select{
+button{
 	height:30px;
 	width:80px;
 	background-color:#9bbef3;
@@ -141,8 +148,14 @@ button,select{
     border-radius: 2px;
     margin-top: 2%;
 }
+select{
+	height:30px;
+	border:none;
+	width: 80px;
+	margin-top: 2%;
+}
 button:hover{
-	background-color:#000F1C;
+	background-color:rgba(0,0,0,0);
 	color: white;
 	-moz-transition: all .5s;
 	-webkit-transition: all .5s;

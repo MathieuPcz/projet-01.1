@@ -9,10 +9,10 @@
 }
 .before{
 	display: inline-block;
-		background-color: #000F1C;
+		background-color: rgba(0,0,0,0.8);
 	vertical-align: top;
 	width: 16%;
-	height: 200px;
+	height: 190px;
 	text-align: center;
 	margin: 20px;
 	moz-box-shadow: 10px 10px 15px 0px black;
@@ -21,14 +21,14 @@
 	box-shadow: 10px 10px 15px 0px black;
 	padding-bottom: 1%;
 	border-radius: 5px;
+	overflow: hidden;
 }
 .before img{
 	width: 100%;
-	border-radius: 5px;
 	z-index: -10;
 }
 .imageBefore{
-	height: 150px;
+	height: 125px;
 	overflow: hidden;
 	width: 100%;
 }

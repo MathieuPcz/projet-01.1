@@ -70,7 +70,7 @@ class Participant{
 
 		$this->_id_user = $id_user;
 		$this->_id_event = $id_event;
-		$suppr = $this->_bdd -> prepare('DELETE * FROM participant WHERE id_user=:id_user AND id_event=:id_event');
+		$suppr = $this->_bdd -> prepare('DELETE FROM participant WHERE id_user=:id_user AND id_event=:id_event');
 		$suppr->execute(array('id_user'=>$this->_id_user,
 								'id_event'=>$this->_id_event));
 		

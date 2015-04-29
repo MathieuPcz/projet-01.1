@@ -225,7 +225,7 @@ class Event{
 
 	public function deleteEvent($id_event){
 		$this->_id = $id_event;
-		$suppr = $this->_bdd -> prepare('DELETE * FROM event WHERE id=:id');
+		$suppr = $this->_bdd -> prepare('DELETE FROM event WHERE id=:id');
 		$suppr->execute(array('id'=>$this->_id));
 	}
 

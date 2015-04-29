@@ -129,6 +129,7 @@
 #description img,.avatar{
 	display: inline-block;
 	vertical-align: top;
+	margin-top: 1%;
 }
 #statusParticipation{
 	color:#A1C6FD;
@@ -144,7 +145,7 @@
 }
 .avatar img{
 	width: 70px;
-	height: 70px;
+	height: 65px;
 }
 #declineEvent{
 	float: right;
