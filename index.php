@@ -21,7 +21,7 @@
 		</header>
 		<div class="content">
 			<div id="register">
-				<img src="vue/images/logo-register.png" alt="Inscription">
+				<img src="vue/images/logo-header.png" alt="Inscription">
 				<form>
 					<input type="text" placeholder="Votre nom" id="register_name" maxlength="25">
 					<input type="text" placeholder="Votre prenom" id="register_firstname" maxlength="25">

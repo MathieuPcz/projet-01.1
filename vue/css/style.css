@@ -47,6 +47,12 @@ h1,h2,h3{
 ul{
 	list-style-type: none;
 }
+.avatar{
+	width: 30px;
+	height: 30px;
+	overflow: hidden;
+	float: left;
+}
 #mainMenu nav img{
 	height: 30px;
 	margin-top: -5px;
@@ -79,7 +85,7 @@ ul{
 	color: #9bbef3;
 }
 #mainMenu nav a:active{
-	background-color: #ed4040;
+	color: #ed4040;
 }
 .menu:hover .menu_ul{
 	display: block;
@@ -161,4 +167,97 @@ button:hover{
 	-webkit-transition: all .5s;
 	-o-transition: all .5s;
 	transition: all .5s;
+}
+#recherche{
+	display: block;
+	width: 20%;
+	position: absolute;
+	margin-left:20%;
+}
+#search{
+	width: 100%;
+	height: 30px;
+	border:none;
+	margin-top: 5%;
+	border-top-right-radius:2px;
+	border-top-left-radius:2px;
+	text-align: center;
+}
+#resultSearch{
+	width: 100%;
+	overflow: hidden;
+	background-color: white;
+	border:none;
+	border-bottom-right-radius:2px;
+	border-bottom-left-radius:2px;
+	display: none;
+	text-align: center;
+}
+#resultSearch ul{
+	list-style-type: none;
+}
+#resultSearch li{
+	padding: 5px;
+	width: 100%;
+}
+#resultSearch a{
+	color: #9BBFF3;
+	width: 100%;
+	font-weight: bold;
+}
+#resultSearch li:hover{
+	background-color: #9BBFF3;
+	color: white;
+}
+.imgSearch{
+	width: 30px;
+	height: 20px;
+	overflow: hidden;
+	text-align: center;
+	float: left;
+}
+.imgSearch img{
+	height: 100%;
+}
+input:-moz-placeholder,textarea:-moz-placeholder{
+	color:black;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder{
+	color:black;
+}
+#numberNotif{
+	position: absolute;
+	margin-top: -20px;
+}
+.notification{
+	color:#9BBFF4;
+}
+#allnotif{
+	moz-box-shadow: 10px 10px 15px 0px black;
+	-webkit-box-shadow: 10px 10px 15px 0px black;
+	-o-box-shadow: 10px 10px 15px 0px black;
+	box-shadow: 10px 10px 15px 0px black;
+	padding: 1%;
+	margin-top: 10%;
+	position: absolute;
+	width: 50%;
+	overflow: hidden;
+	background-color: rgba(0,0,0,0.8);
+	margin-left: 14%;
+	border-radius: 5px;
+	text-align: center;
+	display: none;
+}
+#sectionNotif{
+	margin-top: 1%;
+}
+.allnotif{
+	padding: 2%;
+}
+.allnotif strong{
+	padding: 2%;
+	cursor: pointer;
+}
+.allnotif:hover strong{
+	color:#9BBFF4;
 }

@@ -8,10 +8,10 @@ $id_event = $_POST['id_event'];
 $typeEvent = $_POST['typeEvent'];
 $heure_deb_event = $_POST['heure_deb_event'];
 $access = $_POST['access'];
-$event = $_POST['event'];
 $nameEvent = $_POST['nameEvent'];
 $dateEvent = $_POST['dateEvent'];
 $lieuEvent = $_POST['lieuEvent'];
+$villeEvent = $_POST['villeEvent'];
 $place_user = $_POST['place_user'];
 $event_description = $_POST['event_description'];
 
@@ -21,8 +21,6 @@ if(strlen($nameEvent) < 3){
 	}else{
 		echo '<br> Votre After doit contenir 3 caractères minimum !';
 	}
-}elseif(strlen($event) < 3){
-	echo "<br>Le nom de l'événement en rapport avec votre before-after doit contenir 3 caractères minimum (ex: Gala UTT) ! ";
 }elseif(!empty($dateEvent)){
 	if(preg_match('#^([0-9]{2})([/-])([0-9]{2})\2([0-9]{4})$#', $dateEvent, $m) == 1 && checkdate($m[3], $m[1], $m[4])){
 		if(strlen($lieuEvent) < 3){

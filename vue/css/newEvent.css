@@ -8,7 +8,7 @@
 	position: absolute;
 	width: 50%;
 	overflow: hidden;
-	background-color: #000F1C;
+	background-color: rgba(0,0,0,0.8);
 	margin-left: 14%;
 	border-radius: 5px;
 	text-align: center;
@@ -52,7 +52,7 @@
 	position: absolute;
 	width: 50%;
 	overflow: hidden;
-	background-color: #000F1C;
+	background-color: rgba(0,0,0,0.8);
 	margin-left: 14%;
 	border-radius: 5px;
 	text-align: center;

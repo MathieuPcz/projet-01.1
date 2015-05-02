@@ -7,6 +7,8 @@ if(!empty($_SESSION['user'])){
 	$user = new User($bdd);
 	include_once '../../modele/newEvent.php';
 	$event= new Event($bdd);
+	include_once '../../modele/notification.php';
+	$notification = new Notification($bdd);
 }else{
 	header('Location: ../../index.php'); 
 }
@@ -24,14 +26,46 @@ if(!empty($_SESSION['user'])){
 		<header>
 			<div id="mainMenu">
 				<a href="index.php"><img src="../images/logo-header.png" alt="logo"></a>
+				<div id="recherche">
+					<input type="text" id="search" placeholder="Rechercher un utilisateur, un événement ...">
+					<div id="resultSearch"></div>
+				</div>
 				<nav>
 					<ul>
-						<li class="menu"><?php echo '<a href="user.php?id='.$_SESSION['user'].'">';  ?><?php echo $user->selectFirstname($user_id);  ?></a></li>
+						<li class="menu"><?php echo '<a href="user.php?id='.$_SESSION['user'].'">';  ?><?php echo $user->selectAvatar($user_id); ?><?php echo $user->selectFirstname($user_id);  ?></a></li>
 						<li class="menu"><a href="#">Evénements</a>
 							<ul class="menu_ul">
 								<li class="sousMenu"><a href="#" id="newEvent">Créer</a></li>
 								<li class="sousMenu"><a href="#">Before-After</a></li>
 							</ul>
+						</li>
+							<li class="menu"><a href="#">Notification	<?php 
+								$nbNotif = $notification->countNotif($_SESSION['user'],0);
+								if($nbNotif>0){
+									$nbNotif = '<strong class="notification">'.$nbNotif.'</strong>';
+								}
+								echo '<div id="numberNotif">'.$nbNotif.'</div>'; ?></a>
+							<ul class="menu_ul">
+								<?php 
+								$result = $notification->selectAllNotif($_SESSION['user']);
+								$i=0;
+								foreach($result as $value){
+
+									if(empty($value['id'])){
+										echo'Aucune notification';
+									}elseif($i>2){
+										break;
+									}else{
+										echo '<li class="sousMenu"><a href="../../controler/verifNotif.php?id='.$value['id'].'">'.$value['description'].'</a></li>';
+
+									}
+									$i++;		
+									}
+									
+								 ?>
+								 <li class="sousMenu"><a href="#" id="allNotification">Voir toutes les notifications</a></li>
+							</ul>
+			
 						</li>
 						<li class="menu"><a href="../../controler/disconnect.php">Déconnexion</a></li>
 					</ul>
@@ -57,25 +91,35 @@ if(!empty($_SESSION['user'])){
 		<div class="container">
 				<div class="content-titre">
 					<h2>Les befores-After</h2>
+					
 				</div>
 				<div id="before">
 					<?php 
-					$count = $event->countEvent()-1;
-					for ($i=$count; $i > 0 ; $i--) { 
-						$id_event = $i;
-						$id=$event->selectIdById_event($id_event);
-						echo '<a href="event.php?id='.$id.'"><div class="before">
-								<div class="imageBefore"><img src="'.$event->verifIMGById($id_event).' alt="after"></div>
-								<h3>'.$event->selectTypeEventById($id_event).' - '.$event->selectNameEventById($id_event).'</h3>
-								<strong>Le '.$event->selectDateEventById($id_event).' à '.$event->selectHeure_deb_eventById($id_event).'</strong>
+					$variable = $event->selectAllEvent();
+					foreach ($variable as $value) {
+						$date = new DateTime($value['dateEvent']);
+						$newdate =$date->format('d/m/Y');
+						if(!empty($value['imgEvent'])){
+							$image = '<img src="../images/event/'.$value['imgEvent'].'" alt="imgEvent">';
+						}else{
+							$image = '<img src="../images/logo-header.png" alt="imgEvent" style="width:130%; margin-left:-6%; margin-top:20%;">';
+						}
+						echo '<a href="event.php?id='.$value['id'].'"><div class="before">
+								<div class="imageBefore">'.$image.'</div>
+								<h3>'.$value['typeEvent'].' - '.$value['nameEvent'].'</h3>
+								<strong>Le '.$newdate.' à '.$value['heure_deb_event'].'</strong>
 							</div></a>';
-					} ?>
+					}
+
+					?>
 					<strong></strong>
 				</div>
 	
 		</div>
+		<?php include '../include/notification.php'; ?>
 		<?php include '../include/formEvent.php'; ?>
 		<script type="text/javascript" src="../js/jquery.js"></script>
+		<script type="text/javascript" src="../js/search.js"></script>
 		<script type="text/javascript" src="../js/newEvent.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){

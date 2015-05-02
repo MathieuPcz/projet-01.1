@@ -1,5 +1,5 @@
 <section id="creatEvent">
-			<img src="../images/logo-register.png" alt="création" style="width:50%;">
+			<img src="../images/logo-header.png" alt="création" style="width:50%;">
 			<form>
 				<select name="typeEvent" id="typeEvent">
 					<option value="0" selected="selected">Type d'événement</option>
@@ -34,9 +34,9 @@
 					<option value="automatique">Automatiquement</option>
 				</select>
 				<input type="text" placeholder="Nom de votre before-after" id="nameEvent" maxlength="25">
-				<input type="text" placeholder="Nom de l'événement de votre before-after" id="event" maxlength="25">
 				<input type="text" placeholder="Date de votre before-after" id="dateEvent" maxlength="10">
 				<input type="text" placeholder="Adresse exacte de votre before-after" id="lieuEvent" maxlength="100">
+				<input type="text" placeholder="Votre ville" id="villeEvent" maxlength="100">
 				<input type="number" placeholder="Place disponnible" id="place_user"/>
 				<textarea  id="event_description" name="event_description" placeholder="Description"></textarea>
 				<button type="button" id="annulEvent">Annuler</button>

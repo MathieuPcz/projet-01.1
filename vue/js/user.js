@@ -69,20 +69,20 @@ $(document).ready(function(){
 		type: "post",
 		url: "../../controler/deleteProfil.php",
 		data: {
-			'id_user' : url
+			'passDelete' : $('#passDelete').val()
 			},
 			beforeSend: function(){
-					$('#modifProfilInfo').html("<strong>Suppression en cours...</strong>").fadeIn(400);
-					$('#modifProfilInfo').css('color','#A5CBFF');
+					$('#infoDelete').html("<strong>Suppression en cours...</strong>").fadeIn(400);
+					$('#infoDelete').css('color','#A5CBFF');
 				},
 			success: function(data){
 				if(data == "success"){
-				$('#modifProfilInfo').html("<strong>Suppression en cours...</strong>").fadeIn(400);
+				$('#infoDelete').html("<strong>Suppression en cours...</strong>").fadeIn(400);
 				window.location = "../../";
 				
 				} else { 
-					$('#modifProfilInfo').html(data).fadeIn(1000);
-					$('#modifProfilInfo').css('color','rgb(230,53,49)');
+					$('#infoDelete').html(data).fadeIn(1000);
+					$('#infoDelete').css('color','rgb(230,53,49)');
 					
 				}
 			}
@@ -155,6 +155,91 @@ $('#modifPassword').click(function(){
 			}
 		});
 	})
+
+
+$('#addFriend').click(function(){
+		
+		$.ajax({
+		type: "post",
+		url: "../../controler/addFriend.php",
+		data: {
+			'id_friend' : url
+			},
+			beforeSend: function(){
+					$('#modifProfilInfo').html("<strong>Ajout en cours...</strong>").fadeIn(400);
+					$('#modifProfilInfo').css('color','#A5CBFF');
+				},
+			success: function(data){
+				if(data == 1){
+				$('#modifProfilInfo').html("<strong>Une demande d'ami a été envoyée !</strong>").fadeIn(400);
+				
+				
+				} else{ 
+					$('#modifProfilInfo').html(data).fadeIn(1000);
+					$('#modifProfilInfo').css('color','rgb(230,53,49)');
+					
+				}
+			}
+		});
+	})
+
+$('#acceptFriend').click(function(){
+		
+		$.ajax({
+		type: "post",
+		url: "../../controler/acceptFriend.php",
+		data: {
+			'id_friend' : url
+			},
+			beforeSend: function(){
+					$('#modifProfilInfo').html("<strong>Acceptation en cours...</strong>").fadeIn(400);
+					$('#modifProfilInfo').css('color','#A5CBFF');
+				},
+			success: function(data){
+				if(data == 1){
+				$('#modifProfilInfo').html("<strong>Vous êtes maintenant amis</strong>").fadeIn(400);
+				window.location = "../user/user.php?id="+url;
+				
+				} else{ 
+					$('#modifProfilInfo').html(data).fadeIn(1000);
+					$('#modifProfilInfo').css('color','rgb(230,53,49)');
+					
+				}
+			}
+		});
+	})
+
+	
+
+		$('#validerModifFriend').click(function(){
+
+			if($('#gestionFriend').val()=="Retirer"){
+		
+			$.ajax({
+			type: "post",
+			url: "../../controler/supprFriend.php",
+			data: {
+				'id_friend' : url
+				},
+				beforeSend: function(){
+						$('#modifProfilInfo').html("<strong>Modification en cours...</strong>").fadeIn(400);
+						$('#modifProfilInfo').css('color','#A5CBFF');
+					},
+				success: function(data){
+					if(data == 1){
+					$('#modifProfilInfo').html("<strong>Vous n'êtes plus amis</strong>").fadeIn(400);
+					window.location = "../user/user.php?id="+url;
+					
+					} else{ 
+						$('#modifProfilInfo').html(data).fadeIn(1000);
+						$('#modifProfilInfo').css('color','rgb(230,53,49)');
+						
+					}
+				}
+			});
+		}
+	})	
+	
 
 
 })

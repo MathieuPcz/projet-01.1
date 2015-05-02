@@ -57,15 +57,17 @@ class User{
 
 	public function insertUser(){
 
-		$this->_name = htmlspecialchars(trim(ucfirst($_POST['name'])));
+		$this->_longname = htmlspecialchars(trim(ucfirst($_POST['firstname']))).' '.htmlspecialchars(trim(ucfirst($_POST['name'])));
+		$this->_name = htmlspecialchars(trim(ucfirst($_POST['name']))); 
 		$this->_firstname = htmlspecialchars(trim(ucfirst($_POST['firstname'])));
 		$this->_city = htmlspecialchars(trim(ucfirst($_POST['city'])));
 		$this->_email = htmlspecialchars(trim($_POST['email']));
 		$this->_password = sha1($_POST['password']);
 
 
-		$insert = $this->_bdd->prepare('INSERT INTO user (name,firstname,city,email,password,id_user,register_date) VALUES (:name,:firstname,:city,:email,:password,:id_user,NOW())');
-		$insert->execute(array('name'=>$this->_name,
+		$insert = $this->_bdd->prepare('INSERT INTO user (longname,name,firstname,city,email,password,id_user,register_date) VALUES (:longname,:name,:firstname,:city,:email,:password,:id_user,NOW())');
+		$insert->execute(array('longname'=>$this->_longname,
+								'name'=>$this->_name,
 								'firstname'=>$this->_firstname,
 								'city'=>$this->_city,
 								'email'=>$this->_email,
@@ -83,6 +85,17 @@ class User{
 		$this->_id = $result['id'];
 
 		return $this->_id;
+	}
+
+		public function selectLongname($user_id){
+		$this->_id = $user_id;
+
+		$select = $this->_bdd -> prepare('SELECT longname FROM user WHERE id=:id');
+		$select->execute(array('id'=>$this->_id));
+		$result = $select -> fetch();
+		$this->_longname = $result['longname'];
+
+		return $this->_longname;
 	}
 
 	public function selectName($user_id){
@@ -217,7 +230,7 @@ class User{
 		if(!empty($this->_avatar)){
 			return '	<img src="../images/user/'.$this->_avatar.'"  alt="avatar">';
 		}else{
-			return '<div id="noImgProfil"><img src="../images/logo-header.png"  alt="no-avatar"></div>';
+			
 		}
 	}
 			public function selectRegister_date($user_id){
@@ -229,6 +242,17 @@ class User{
 		$this->_register_date = $result['register_date'];
 
 		return $this->_register_date;
+	}
+
+	public function selectPassword($user_id){
+		$this->_id = $user_id;
+
+		$select = $this->_bdd -> prepare('SELECT password FROM user WHERE id=:id');
+		$select->execute(array('id'=>$this->_id));
+		$result = $select -> fetch();
+		$this->_password = $result['password'];
+
+		return $this->_password;
 	}
 
 	public function modifAvatar($user_id,$modif_img){

@@ -1,5 +1,5 @@
 <section id="modifierEvent">
-			<img src="../images/logo-register.png" alt="création" style="width:50%;">
+			<img src="../images/logo-header.png" alt="création" style="width:50%;">
 			<form>
 				<select name="typeEvent" id="modif_typeEvent">
 					<option value="<?php echo $event->selectTypeEvent($id_event); ?>" selected="selected"><?php echo $event->selectTypeEvent($id_event); ?></option>
@@ -34,11 +34,11 @@
 					<option value="automatique">Automatiquement</option>
 				</select>
 				<input type="text" value="<?php echo $event->selectNameEvent($id_event); ?>" id="modif_nameEvent" maxlength="25">
-				<input type="text" value="<?php echo $event->selectEvent($id_event); ?>" id="modif_event" maxlength="25">
 				<input type="text" value="<?php echo $event->selectDateEvent($id_event); ?>" id="modif_dateEvent" maxlength="10">
 				<input type="text" value="<?php echo $event->selectLieuEvent($id_event); ?>" id="modif_lieuEvent" maxlength="100">
+				<input type="text" value="<?php echo $event->selectVilleEvent($id_event); ?>" id="modif_villeEvent" maxlength="100">
 				<input type="number" value="<?php echo $event->selectPlaceUser($id_event); ?>" id="modif_place_user"/>
-				<textarea  id="modif_event_description" name="event_description" ><?php echo $event->selectDescription($id_event); ?></textarea>
+				<textarea  id="modif_event_description" name="event_description" ><?php echo strip_tags(trim($event->selectDescription($id_event))); ?></textarea>
 				<button type="button" id="annulModifEvent">Annuler</button>
 				<button type="button" id="modifierContenuEvent">Modifier</button>
 				<div id="infoModifEvent"></div>

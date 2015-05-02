@@ -12,6 +12,10 @@ $(document).ready(function(){
 		if(choix == '1'){
 			$('.container').fadeOut();
 			$('#modifierEvent').fadeIn(800);
+		}else if(choix == '0'){
+			$('.container').fadeOut();
+			$('#inviteFriends').fadeIn(800);
+
 		}else if(choix == '2'){
 			$('#affiche').click();
 			$('#affiche').change(function() {
@@ -93,6 +97,7 @@ $(document).ready(function(){
 			'nameEvent' : $('#modif_nameEvent').val(),
 			'dateEvent' : $('#modif_dateEvent').val(),
 			'lieuEvent' : $('#modif_lieuEvent').val(),
+			'villeEvent' : $('#modif_villeEvent').val(),
 			'event_description' : $('#modif_event_description').val(),
 			'place_user' : $('#modif_place_user').val()
 			},
@@ -161,5 +166,71 @@ $(document).ready(function(){
 							}
 						}
 					});
-				})
+				});
+
+		$('#annulerInvite').click(function(){
+			$('#inviteFriends').fadeOut();
+			$('.container').fadeIn(800);
+		});
+		
+			$('#participeInviteEvent').click(function(){
+					$.ajax({
+					type: "post",
+					url: "../../controler/valideInviteEvent.php",
+					data: {
+						'id_event' : url
+						},
+						beforeSend: function(){
+								$('#infoParticipation').html("<strong>Enregistrement en cours...</strong>").fadeIn(400);
+								$('#infoParticipation').css('color','#A5CBFF');
+							},
+						success: function(data){
+							if(data == "success"){
+								$('#infoParticipation').html('Inscription réussie, elle sera effective dès lors que l\'hôte de cet événement vous aura accepté !');
+								window.location = "event.php?id="+url;
+							
+							} else { 
+								$('#infoParticipation').html(data).fadeIn(1000);
+								$('#infoParticipation').css('color','rgb(230,53,49)');
+								
+							}
+						}
+					});
+				});
+			$('#declineInviteEvent').click(function(){
+					$.ajax({
+					type: "post",
+					url: "../../controler/declineEvent.php",
+					data: {
+						'id_event' : url
+						},
+						beforeSend: function(){
+								$('#infoParticipation').html("<strong>Modification en cours...</strong>").fadeIn(400);
+								$('#infoParticipation').css('color','#A5CBFF');
+							},
+						success: function(data){
+							if(data == "success"){
+								$('#infoParticipation').html('Vous n\'êtes maintenant plus inscrit !').delay(1000);
+								window.location = "event.php?id="+url;
+							
+							} else { 
+								$('#infoParticipation').html(data).fadeIn(1000);
+								$('#infoParticipation').css('color','rgb(230,53,49)');
+								
+							}
+						}
+					});
+				});
+
+			$('.nbParticipant').click(function(){
+
+				$('.container').fadeOut();
+				$('#gestionInvite').fadeIn(800);
+			})
+
+			$('#annulInvite').click(function(){
+
+				$('#gestionInvite').fadeOut();
+				$('.container').fadeIn(800);
+			})
 })

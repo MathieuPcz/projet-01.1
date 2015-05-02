@@ -9,7 +9,7 @@
 }
 .before{
 	display: inline-block;
-		background-color: rgba(0,0,0,0.8);
+	background-color: rgba(0,0,0,0.8);
 	vertical-align: top;
 	width: 16%;
 	height: 190px;
@@ -42,30 +42,7 @@
 	font-size: 0.8em;
 }
 
-.after{
-		background-color: #000F1C;
-	display: inline-block;
-	width: 16%;
-	margin: 20px;
-	text-align: center;
-	moz-box-shadow: 10px 10px 15px 0px black;
-	-webkit-box-shadow: 10px 10px 15px 0px black;
-	-o-box-shadow: 10px 10px 15px 0px black;
-	box-shadow: 10px 10px 15px 0px black;
-	padding-bottom: 1%;
-	border-radius: 5px;
-}
-.after img{
-	width: 100%;
-	border-radius: 5px;
-	z-index: -10;
-}
-.after h3{
-	font-size: 1em;
-}
-.after strong{
-	font-size: 0.8em;
-}
+
 @media all and (max-width: 650px){
 	.container{
 		padding-top: 20%;
