@@ -289,6 +289,14 @@ class Event{
 			return $select;
 		}
 
+		public function selectAllEventByUser($id_user){
+			$this->_id_user = $id_user;
+			$select = $this->_bdd -> prepare('SELECT * FROM event WHERE id_user=:id_user ORDER BY dateEvent');
+			$select->execute(array('id_user'=>$this->_id_user));
+
+			return $select;
+		}
+
 	public function deleteEventProfil($id_user){
 		$this->_id_user = $id_user;
 		$suppr = $this->_bdd -> prepare('DELETE FROM event WHERE id_user=:id_user');

@@ -19,6 +19,7 @@
 		}else{
 			echo 'success';
 			$_SESSION['user'] = $user->selectId();
+			$user->modifConnect($_SESSION['user'],1);
 		}
 	}else{
 		echo 'erreur';

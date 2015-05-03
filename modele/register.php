@@ -19,6 +19,7 @@ class User{
 	private $_etude;
 	private $_citation;
 	private $_description;
+	private $_connect;
 
 	public function __construct($bdd){
 
@@ -228,7 +229,7 @@ class User{
 		$this->_avatar = $result['avatar'];
 
 		if(!empty($this->_avatar)){
-			return '	<img src="../images/user/'.$this->_avatar.'"  alt="avatar">';
+			return '	<img src="../images/user/'.$this->_avatar.'"  alt="avatar" width="40px">';
 		}else{
 			
 		}
@@ -253,6 +254,16 @@ class User{
 		$this->_password = $result['password'];
 
 		return $this->_password;
+	}
+	public function selectConnect($user_id){
+		$this->_id = $user_id;
+
+		$select = $this->_bdd -> prepare('SELECT connect FROM user WHERE id=:id');
+		$select->execute(array('id'=>$this->_id));
+		$result = $select -> fetch();
+		$this->_connect = $result['connect'];
+
+		return $this->_connect;
 	}
 
 	public function modifAvatar($user_id,$modif_img){
@@ -317,6 +328,15 @@ class User{
 		$update->execute(array('password'=>$this->_password,
 								'id'=>$this->_id));
 
+	}
+
+		public function modifConnect($user_id,$connect){
+		$this->_id = $user_id;
+		$this->_connect = $connect;
+
+		$update = $this->_bdd -> prepare('UPDATE user SET connect=:connect WHERE id=:id');
+		$update->execute(array('id'=>$this->_id,
+								'connect'=>$this->_connect));
 	}
 }
 	

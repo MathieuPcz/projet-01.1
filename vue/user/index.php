@@ -5,8 +5,12 @@ if(!empty($_SESSION['user'])){
 	include_once '../../controler/bdd.php';
 	include_once '../../modele/register.php';
 	$user = new User($bdd);
+	include_once '../../modele/friends.php';
+	$friends = new Friend($bdd);
 	include_once '../../modele/newEvent.php';
-	$event= new Event($bdd);
+	$event = new Event($bdd);
+	include_once '../../modele/participant.php';
+	$participant = new Participant($bdd);
 	include_once '../../modele/notification.php';
 	$notification = new Notification($bdd);
 }else{
@@ -30,63 +34,16 @@ if(!empty($_SESSION['user'])){
 					<input type="text" id="search" placeholder="Rechercher un utilisateur, un événement ...">
 					<div id="resultSearch"></div>
 				</div>
-				<nav>
-					<ul>
-						<li class="menu"><?php echo '<a href="user.php?id='.$_SESSION['user'].'">';  ?><?php echo $user->selectAvatar($user_id); ?><?php echo $user->selectFirstname($user_id);  ?></a></li>
-						<li class="menu"><a href="#">Evénements</a>
-							<ul class="menu_ul">
-								<li class="sousMenu"><a href="#" id="newEvent">Créer</a></li>
-								<li class="sousMenu"><a href="#">Before-After</a></li>
-							</ul>
-						</li>
-							<li class="menu"><a href="#">Notification	<?php 
-								$nbNotif = $notification->countNotif($_SESSION['user'],0);
-								if($nbNotif>0){
-									$nbNotif = '<strong class="notification">'.$nbNotif.'</strong>';
-								}
-								echo '<div id="numberNotif">'.$nbNotif.'</div>'; ?></a>
-							<ul class="menu_ul">
-								<?php 
-								$result = $notification->selectAllNotif($_SESSION['user']);
-								$i=0;
-								foreach($result as $value){
-
-									if(empty($value['id'])){
-										echo'Aucune notification';
-									}elseif($i>2){
-										break;
-									}else{
-										echo '<li class="sousMenu"><a href="../../controler/verifNotif.php?id='.$value['id'].'">'.$value['description'].'</a></li>';
-
-									}
-									$i++;		
-									}
-									
-								 ?>
-								 <li class="sousMenu"><a href="#" id="allNotification">Voir toutes les notifications</a></li>
-							</ul>
-			
-						</li>
-						<li class="menu"><a href="../../controler/disconnect.php">Déconnexion</a></li>
-					</ul>
-				</nav>
+			<nav>
+				<?php include_once '../include/menuHeader.php'; ?>
+			</nav>
 			</div>
 			<div id="couverture">
 	
 			</div>
 		</header>
 		<div class="tchat">
-			<ul>
-				<!-- <li class="menuTchat"><a href="#" class="TchatCategories">Amis</a>
-					<ul>
-						<li class="tchatPeople"><a href="#" class="people">Mathieu</a></li>
-						<li class="tchatPeople"><a href="#" class="people">Florian</a></li>
-						<li class="tchatPeople"><a href="#" class="people">Cassandra</a></li>
-					</ul>
-				</li>
-				
-				<li class="menuTchat"><a href="#" class="TchatCategories">Public</a></li>
-							</ul> -->
+			<?php include_once '../include/discussion.php' ?>
 		</div>
 		<div class="container">
 				<div class="content-titre">
@@ -116,10 +73,14 @@ if(!empty($_SESSION['user'])){
 				</div>
 	
 		</div>
+		<div class="discut">
+				<div class="refreshTchat"></div>
+				<input type="text" placeholder="Votre message ..." class="newMessageTchat" autofocus>
+		</div>
 		<?php include '../include/notification.php'; ?>
 		<?php include '../include/formEvent.php'; ?>
 		<script type="text/javascript" src="../js/jquery.js"></script>
-		<script type="text/javascript" src="../js/search.js"></script>
+		<script type="text/javascript" src="../js/allPage.js"></script>
 		<script type="text/javascript" src="../js/newEvent.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -137,6 +98,32 @@ if(!empty($_SESSION['user'])){
 					$('#creatEvent').fadeOut();
 					$('.container').fadeIn(800);
 				});
+
+				$.urlParam = function(name){
+		    var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+		    return results[1] || 0;
+		}
+	var url = $.urlParam('discut');
+	if(url){
+		var id_user2 = url;
+
+		
+		$('.discut').fadeIn();
+				$.ajax({
+				type: "post",
+				url: "../../controler/tchatPrivee.php",
+				data: {
+					'id_user2' : id_user2
+					},
+					success: function(data){
+						$('.discut').html(data);
+						
+						
+					}
+				});	
+		
+			clearInterval(refreshMessage);
+	}
 		});
 		</script>
 	</body>

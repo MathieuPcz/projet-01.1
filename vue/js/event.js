@@ -1,11 +1,14 @@
 $(document).ready(function(){
 
+	/*recuper la variable get url*/
 	$.urlParam = function(name){
 		    var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
 		    return results[1] || 0;
 		}
 	var url = $.urlParam('id');
 
+
+	/*gestion de l'événement modif suppr add....*/
 	$('#validModif').click(function(){
 		var choix = $('#choix').val();
 
@@ -45,6 +48,9 @@ $(document).ready(function(){
 			xhr.send(form);
 			return false;
 		});
+		}else if(choix ="4"){
+			$('.container').fadeOut();
+			$('#acceptUserPublic').fadeIn(800);
 		}else{
 			$('.container').fadeOut();
 			$('#delete').fadeIn(800);
@@ -119,6 +125,7 @@ $(document).ready(function(){
 		});
 	})
 
+	/*gere la participation ou non de l'user */
 	$('#participe').click(function(){
 					$.ajax({
 					type: "post",
@@ -233,4 +240,12 @@ $(document).ready(function(){
 				$('#gestionInvite').fadeOut();
 				$('.container').fadeIn(800);
 			})
+
+			$('#annulerAcceptUserPublic').click(function(){
+				$('#AcceptUserPublic').fadeOut();
+				$('.container').fadeIn(800);
+			})
+
+
+			
 })

@@ -7,6 +7,7 @@ class Friend{
 	private $_id_user2;
 	private $_countFriends;
 	private $_statut;
+	private $_longname;
 
 	public function __construct($bdd){
 
@@ -39,35 +40,39 @@ class Friend{
 		return $this->_id_user2;
 	}
 
-	public function insertFriend($id_user,$id_user2){
+	public function insertFriend($id_user,$id_user2,$longname){
 
 		$this->_id_user = $id_user;
 		$this->_id_user2 = $id_user2;
 		$this->_statut = 0;
+		$this->_longname = $longname;
 
-		$insert = $this->_bdd->prepare('INSERT INTO friends (id_user,id_user2,statut,friendDate) VALUES (:id_user,:id_user2,:statut,NOW())');
+		$insert = $this->_bdd->prepare('INSERT INTO friends (id_user,id_user2,statut,longname,friendDate) VALUES (:id_user,:id_user2,:statut,:longname,NOW())');
 		$insert->execute(array('id_user'=>$this->_id_user,
 								'id_user2'=>$this->_id_user2,
-								'statut'=>$this->_statut));
+								'statut'=>$this->_statut,
+								'longname'=>$this->_longname));
 
 	
 	}
 
-		public function acceptFriend($id_user,$id_user2){
+		public function acceptFriend($id_user,$id_user2,$longname){
 
 		$this->_id_user = $id_user;
 		$this->_id_user2 = $id_user2;
 		$this->_statut = 1;
+		$this->_longname = $longname;
 
 		$update = $this->_bdd->prepare('UPDATE friends SET statut=:statut WHERE id_user=:id_user AND id_user2=:id_user2');
 		$update->execute(array('id_user'=>$this->_id_user,
 								'id_user2'=>$this->_id_user2,
 								'statut'=>$this->_statut));
 
-		$insert = $this->_bdd->prepare('INSERT INTO friends (id_user,id_user2,statut,friendDate) VALUES (:id_user,:id_user2,:statut,NOW())');
+		$insert = $this->_bdd->prepare('INSERT INTO friends (id_user,id_user2,statut,longname,friendDate) VALUES (:id_user,:id_user2,:statut,:longname,NOW())');
 		$insert->execute(array('id_user'=>$this->_id_user2,
 								'id_user2'=>$this->_id_user,
-								'statut'=>$this->_statut));
+								'statut'=>$this->_statut,
+								'longname'=>$this->_longname));
 
 	
 	}
@@ -95,6 +100,20 @@ class Friend{
 		$this->_statut = 1;
 
 		$select = $this->_bdd -> prepare('SELECT id,id_user2, DATE_FORMAT(friendDate, "%d/%m/%Y") as friendDate FROM friends WHERE id_user=:id_user AND statut=:statut');
+		$select->execute(array('id_user'=>$this->_id_user,
+								'statut'=>$this->_statut));
+		
+
+		return $select;
+
+	}
+
+	public function selectFriendsTchat($id_user){
+
+		$this->_id_user = $id_user;
+		$this->_statut = 1;
+
+		$select = $this->_bdd -> prepare('SELECT id,id_user2,longname  FROM friends WHERE id_user=:id_user AND statut=:statut ORDER BY longname');
 		$select->execute(array('id_user'=>$this->_id_user,
 								'statut'=>$this->_statut));
 		

@@ -13,7 +13,7 @@ $id_user = $_SESSION['user'];
 $id_user2 = $_POST['id_friend'];
 
  if(!empty($id_user) AND !empty($id_user2)){
- 	$friends->acceptFriend($id_user2,$id_user);
+ 	$friends->acceptFriend($id_user2,$id_user,$user->selectLongname($id_user2));
 	$type ="Demande acceptée";
 	$description = 'Vous êtes désormais amis avec '.$user->selectLongname($id_user);
 	$notif->sendNotif($id_user,$id_user2,$type,$description);

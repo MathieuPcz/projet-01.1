@@ -1,11 +1,13 @@
 $(document).ready(function(){
-
+	/*recupere valeur get url*/
 	$.urlParam = function(name){
 		    var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
 		    return results[1] || 0;
 		}
 	var url = $.urlParam('id');
 
+
+	/*modification profil*/
 	$('#valider').click(function(){
 		var choix = $('#modifierProfil').val();
 
@@ -156,6 +158,7 @@ $('#modifPassword').click(function(){
 		});
 	})
 
+/*gestion des amis*/
 
 $('#addFriend').click(function(){
 		
@@ -240,6 +243,3 @@ $('#acceptFriend').click(function(){
 		}
 	})	
 	
-
-
-})

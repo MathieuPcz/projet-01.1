@@ -22,6 +22,12 @@ if($type == "Demande d'ami(e)"){
 }elseif($type=="public inscrit event"){
 	$notif->modifNotif($_SESSION['user']);
 	header('Location: ../vue/user/event.php?id='.$id_user);
+}elseif ($type == "tchat") {
+	$notif->modifNotif($_SESSION['user']);
+	header('Location: ../vue/user/index.php?discut='.$notif->selectUser($id_notif));
+}elseif ($type == "accpete user public event") {
+	$notif->modifNotif($_SESSION['user']);
+	header('Location: ../vue/user/event.php?id='.$id_user);
 }
 
  ?>

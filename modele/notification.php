@@ -70,6 +70,18 @@ class Notification{
 			return $select;
 		}
 
+		public function selectAllNotifByStatut($id_user,$statut){
+
+			$this->_id_user = $id_user;
+			$this->_statut = $statut;
+			$select = $this->_bdd -> prepare('SELECT id,id_user,id_user2, DATE_FORMAT(notifDate, "%d/%m/%Y à %H:%i") as notifDate,type,description FROM notification WHERE id_user=:id_user AND statut=:statut ORDER BY notifDate DESC');
+			$select->execute(array('id_user'=>$this->_id_user,
+									'statut'=>$this->_statut));
+
+			
+			return $select;
+		}
+
 		public function selectUser($id_notif){
 
 			$this->_id = $id_notif;

@@ -16,7 +16,7 @@ if(!empty($id_user) AND !empty($id_user2)){
 
 	$ami = $friend->verifFriend($id_user,$id_user2);
 	if($ami != $id_user2){
-		$friend->insertFriend($id_user,$id_user2);
+		$friend->insertFriend($id_user,$id_user2,$user->selectLongname($id_user2));
 		$type ="Demande d'ami(e)";
 		$description = $user->selectLongname($id_user)." vous demande en ami(e)";
 		$notif->sendNotif($id_user,$id_user2,$type,$description);

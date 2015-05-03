@@ -37,44 +37,7 @@ if(!empty($_SESSION['user'])){
 					<div id="resultSearch"></div>
 				</div>
 			<nav>
-				<ul>
-					<li class="menu"><?php echo '<a href="user.php?id='.$_SESSION['user'].'">';  ?><?php echo $user->selectAvatar($user_id); ?><?php echo $user->selectFirstname($user_id);  ?></a></li>
-					<li class="menu"><a href="#">Evénements</a>
-						<ul class="menu_ul">
-							<li class="sousMenu"><a href="#" id="newEvent">Créer</a></li>
-							<li class="sousMenu"><a href="../user/">Before-After</a></li>
-						</ul>
-					</li>
-						<li class="menu"><a href="#">Notification	<?php 
-								$nbNotif = $notification->countNotif($_SESSION['user'],0);
-								if($nbNotif>0){
-									$nbNotif = '<strong class="notification">'.$nbNotif.'</strong>';
-								}
-								echo '<div id="numberNotif">'.$nbNotif.'</div>'; ?></a>
-							<ul class="menu_ul">
-								<?php 
-								$result = $notification->selectAllNotif($_SESSION['user']);
-								$i=0;
-								foreach($result as $value){
-
-									if(empty($value['id'])){
-										echo'Aucune notification';
-									}elseif($i>2){
-										break;
-									}else{
-										echo '<li class="sousMenu"><a href="../../controler/verifNotif.php?id='.$value['id'].'">'.$value['description'].'</a></li>';
-
-									}
-									$i++;		
-									}
-									
-								 ?>
-								 <li class="sousMenu"><a href="#" id="allNotification">Voir toutes les notifications</a></li>
-							</ul>
-			
-						</li>
-					<li class="menu"><a href="../../controler/disconnect.php">Déconnexion</a></li>
-				</ul>
+				<?php include_once '../include/menuHeader.php'; ?>
 			</nav>
 		</div>
 		<div id="couverture">
@@ -82,21 +45,12 @@ if(!empty($_SESSION['user'])){
 		</div>
 	</header>
 	<div class="tchat">
-		<ul>
-				<!-- <li class="menuTchat"><a href="#" class="TchatCategories">Amis</a>
-					<ul>
-						<li class="tchatPeople"><a href="#" class="people">Mathieu</a></li>
-						<li class="tchatPeople"><a href="#" class="people">Florian</a></li>
-						<li class="tchatPeople"><a href="#" class="people">Cassandra</a></li>
-					</ul>
-				</li>
-				
-				<li class="menuTchat"><a href="#" class="TchatCategories">Public</a></li>
-			</ul> -->
+		<?php include_once '../include/discussion.php' ?>
 		</div>
 		<div class="container">
 			<div id="baniere">
-				<div id="imageBaniere"><?php echo $event->verifIMG($id_event) ?></div>
+				<div id="imageBaniere"><?php $id_event = $_GET['id'];
+				echo $event->verifIMG($id_event) ?></div>
 				<div id="infoCreateur">
 					<p>Créé le : <?php echo $event->selectRegister_date($id_event); ?></p>
 					<strong>Par : <?php 
@@ -150,6 +104,7 @@ if(!empty($_SESSION['user'])){
 					</div>
 					<?php 
 						$public = $participant->selectAllParticipant($id_event,$status);
+						$i=0;
 						foreach ($public as $value) {
 							if($i>10){
 									exit();
@@ -239,12 +194,17 @@ if(!empty($_SESSION['user'])){
 			<button id="supprOui">Confirmer</button>
 			<div id="infoDelete"></div>
 		</div>
+		<div class="discut">
+				<div class="refreshTchat"></div>
+				<input type="text" placeholder="Votre message ..." class="newMessageTchat" autofocus>
+		</div>
 		<input type="file" id="affiche">
 		<?php include '../include/notification.php'; ?>
 		<?php include '../include/inviteFriend.php'; ?>
 		<?php include '../include/formEvent.php'; ?>
 		<?php include '../include/modifEvent.php'; ?>
 		<?php include '../include/gestionInvite.php'; ?>
+		<?php include '../include/acceptUserPublic.php'; ?>
 		
 		<!-- <footer>
 			<a href="#">À propos</a> <a href="#">Aide</a><a href="#">État du service</a> <a href="#">Offres d'emploi</a> <a href="#">Conditions</a> <a href="#">Confidentialité</a> <a href="#">Informations sur la publicité</a> <a href="#">Médias</a> <a href="#"> Développeurs</a> © 2015 Before-After
@@ -252,7 +212,7 @@ if(!empty($_SESSION['user'])){
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/newEvent.js"></script>
 		<script type="text/javascript" src="../js/event.js"></script>
-		<script type="text/javascript" src="../js/search.js"></script>
+		<script type="text/javascript" src="../js/allPage.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				var widthWindow = $(window).width();

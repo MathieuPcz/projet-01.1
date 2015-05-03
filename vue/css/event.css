@@ -172,7 +172,7 @@
 #declineEvent{
 	float: right;
 }
-#inviteFriends{
+#inviteFriends,#acceptUserPublic{
 	moz-box-shadow: 10px 10px 15px 0px black;
 	-webkit-box-shadow: 10px 10px 15px 0px black;
 	-o-box-shadow: 10px 10px 15px 0px black;
@@ -188,13 +188,13 @@
 	text-align: center;
 	display: none;
 }
-.listInviteFriend{
+.listInviteFriend,.acceptUserPublic{
 	margin-top: 2%;
 	width: 100%;
 	text-align: justify;
 	padding-left: 40%;
 }
-.listInviteFriend strong{
+.listInviteFriend strong,.acceptUserPublic strong{
 	margin-left: 5%;
 	font-size: 1.2em;
 }

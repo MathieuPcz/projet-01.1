@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	/*verif et envoie de l'inscription à la bdd*/
+	/*verif et envoie de l'event à la bdd*/
 	$('#event').keyup(function(){
 		if($(this).val().length < 3){
 		$('#event').css('background-color','#E89103');
