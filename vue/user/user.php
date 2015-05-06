@@ -24,6 +24,7 @@ if(!empty($_SESSION['user'])){
 		<meta charset="utf-8">
 		<title>Before | After</title>
 		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/tchat.css">
 		<link rel="stylesheet" href="../css/user.css">
 		<link rel="stylesheet" href="../css/newEvent.css">
 	</head>
@@ -49,8 +50,8 @@ if(!empty($_SESSION['user'])){
 
 		<div class="container">
 				<div id="imgProfil">
-					<div id="profilImg"><?php  if(!empty($user->selectAvatar($id_user))){
-						echo $user->selectAvatar($id_user); 
+					<div id="profilImg"><?php $avatar = $user->selectAvatar($id_user); if(!empty($avatar)){
+						echo $avatar; 
 						}else{
 							echo '<img src="../images/logo-header.png" alt="no-avatar" id="no-avatar">';
 							}?></div>
@@ -97,9 +98,9 @@ if(!empty($_SESSION['user'])){
 					</div>
 					<div id="textInfo">
 						<h3>Informations personnelles :</h3>
-						<p>Situations amoureuse : <strong><?php if(!empty($user->selectLove($id_user))){echo $user->selectLove($id_user);}else{echo 'non-renseigné';} ?></strong></p>
+						<p>Actuellement : <strong><?php $love = $user->selectLove($id_user); if(!empty($love)){echo $user->selectLove($id_user);}else{echo 'non-renseigné';} ?></strong></p>
 						<p>Habite : <strong><?php echo $user->selectLieu($id_user); ?></strong></p>
-						<p>Age : <strong><?php if(!empty($user->selectAge($id_user))){echo $user->selectAge($id_user).' ans';}else{echo 'non-renseigné';} ?></strong></p>
+						<p>Age : <strong><?php $age = $user->selectAge($id_user); if(!empty($age)){echo $user->selectAge($id_user).' ans';}else{echo 'non-renseigné';} ?></strong></p>
 					</div>
 				</div>
 				<div id="autre">
@@ -111,11 +112,11 @@ if(!empty($_SESSION['user'])){
 						</ul>
 					</nav>
 					<div id="moreInformation">
-						<p>Citation favorite : <strong><?php if(!empty($user->selectCitation($id_user))){echo $user->selectCitation($id_user);}else{echo 'non-renseigné';} ?></strong></p>
-						<p>Profession : <strong><?php if(!empty($user->selectProfession($id_user))){echo $user->selectProfession($id_user);}else{echo 'non-renseigné';} ?></strong></p>
-						<p>Lieu de naissance : <strong><?php if(!empty($user->selectNaissance($id_user))){echo $user->selectNaissance($id_user);}else{echo 'non-renseigné';} ?></strong></p>
-						<p>Niveau d'étude : <strong><?php if(!empty($user->selectEtude($id_user))){echo $user->selectEtude($id_user);}else{echo 'non-renseigné';} ?></strong></p>
-						<p><strong><?php if(!empty($user->selectDescription($id_user))){echo $user->selectDescription($id_user);}else{} ?></strong></p>
+						<p>Citation favorite : <strong><?php $citation = $user->selectCitation($id_user); if(!empty($citation)){echo $user->selectCitation($id_user);}else{echo 'non-renseigné';} ?></strong></p>
+						<p>Profession : <strong><?php $profession = $user->selectProfession($id_user); if(!empty($profession)){echo $user->selectProfession($id_user);}else{echo 'non-renseigné';} ?></strong></p>
+						<p>Lieu de naissance : <strong><?php $naissance = $user->selectNaissance($id_user); if(!empty($naissance)){echo $user->selectNaissance($id_user);}else{echo 'non-renseigné';} ?></strong></p>
+						<p>Niveau d'étude : <strong><?php $etude = $user->selectEtude($id_user); if(!empty($etude)){echo $user->selectEtude($id_user);}else{echo 'non-renseigné';} ?></strong></p>
+						<p><strong><?php $description = $user->selectDescription($id_user); if(!empty($description)){echo $user->selectDescription($id_user);}else{} ?></strong></p>
 					</div>
 					<div id="myFriends">
 						<div class="friend">
@@ -169,8 +170,8 @@ if(!empty($_SESSION['user'])){
 				<input type="text" placeholder="Votre message ..." class="newMessageTchat" autofocus>
 		</div>
 		<?php include '../include/notification.php'; ?>
-		<?php include '../include/formEvent.php'; ?>
 		<?php include '../include/modifProfil.php'; ?>
+		
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/newEvent.js"></script>
 		<script type="text/javascript" src="../js/user.js"></script>

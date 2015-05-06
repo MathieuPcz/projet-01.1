@@ -48,7 +48,7 @@ $(document).ready(function(){
 			xhr.send(form);
 			return false;
 		});
-		}else if(choix ="4"){
+		}else if(choix =="4"){
 			$('.container').fadeOut();
 			$('#acceptUserPublic').fadeIn(800);
 		}else{
@@ -242,7 +242,7 @@ $(document).ready(function(){
 			})
 
 			$('#annulerAcceptUserPublic').click(function(){
-				$('#AcceptUserPublic').fadeOut();
+				$('#annulerAcceptUserPublic').fadeOut();
 				$('.container').fadeIn(800);
 			})
 

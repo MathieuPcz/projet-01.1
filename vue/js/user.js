@@ -241,5 +241,6 @@ $('#acceptFriend').click(function(){
 				}
 			});
 		}
-	})	
+	})
+})	
 	

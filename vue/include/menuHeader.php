@@ -1,11 +1,6 @@
 <ul>
-					<li class="menu"><?php echo '<a href="user.php?id='.$_SESSION['user'].'">';  ?><?php echo $user->selectAvatar($user_id); ?><?php echo $user->selectFirstname($user_id);  ?></a></li>
-					<li class="menu"><a href="#">Evénements</a>
-						<ul class="menu_ul">
-							<li class="sousMenu"><a href="#" id="newEvent">Créer</a></li>
-							<li class="sousMenu"><a href="../user/">Before-After</a></li>
-						</ul>
-					</li>
+					<li class="menu"><?php echo '<a href="user.php?id='.$_SESSION['user'].'">';  ?><?php echo '<div id="imgAvatar">'.$user->selectAvatar($_SESSION['user']).'</div>'; ?><?php echo '<div id="nameAvatar">'.$user->selectFirstname($user_id).'</div>';  ?></a></li>
+					<li class="menu"><a href="../user/">Evénements</a></li>
 						<li class="menu" id="notificationMenu"><a href="#">Notification	<?php 
 								$nbNotif = $notification->countNotif($_SESSION['user'],0);
 								if($nbNotif>0){

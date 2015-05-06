@@ -23,6 +23,7 @@ if(!empty($_SESSION['user'])){
 		<meta charset="utf-8">
 		<title>Before | After</title>
 		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/tchat.css">
 		<link rel="stylesheet" href="../css/index-user.css">
 		<link rel="stylesheet" href="../css/newEvent.css">
 	</head>
@@ -38,22 +39,28 @@ if(!empty($_SESSION['user'])){
 				<?php include_once '../include/menuHeader.php'; ?>
 			</nav>
 			</div>
-			<div id="couverture">
-	
-			</div>
 		</header>
 		<div class="tchat">
 			<?php include_once '../include/discussion.php' ?>
 		</div>
 		<div class="container">
-				<div class="content-titre">
-					<h2>Les befores-After</h2>
-					
+				<div id="cadre">
+					<div id="contentEvent">
+					<select  id="trier">
+						<option value="0">Trier par</option>
+						<option value="1">Evénement</option>
+						<option value="2">Before</option>
+						<option value="3">After</option>
+					</select><input type="text" placeholder="Recherche par ville..." id="searchVilleEvent">
+					<div id="resultSearchVilleEvent"></div><button id="validerTrie">Valider</button>
+
+					<button id="newEvent">Créer</button>
 				</div>
 				<div id="before">
 					<?php 
-					$variable = $event->selectAllEvent();
-					foreach ($variable as $value) {
+					
+						$variable = $event->selectAllEvent();
+						foreach ($variable as $value) {
 						$date = new DateTime($value['dateEvent']);
 						$newdate =$date->format('d/m/Y');
 						if(!empty($value['imgEvent'])){
@@ -67,9 +74,11 @@ if(!empty($_SESSION['user'])){
 								<strong>Le '.$newdate.' à '.$value['heure_deb_event'].'</strong>
 							</div></a>';
 					}
+					
 
 					?>
 					<strong></strong>
+				</div>
 				</div>
 	
 		</div>
@@ -79,6 +88,7 @@ if(!empty($_SESSION['user'])){
 		</div>
 		<?php include '../include/notification.php'; ?>
 		<?php include '../include/formEvent.php'; ?>
+		
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/allPage.js"></script>
 		<script type="text/javascript" src="../js/newEvent.js"></script>
@@ -99,7 +109,65 @@ if(!empty($_SESSION['user'])){
 					$('.container').fadeIn(800);
 				});
 
-				$.urlParam = function(name){
+
+
+	/*recherche ville avec trie*/
+	$('#searchVilleEvent').keyup(function(){
+		if($(this).val().length > 2){
+
+				$.ajax({
+				type: "post",
+				url: "../../controler/verifVille.php",
+				data: {
+					'search' : $('#searchVilleEvent').val()
+					},
+					success: function(data){
+						$('#resultSearchVilleEvent').html('<ul>'+data+'</ul>').fadeIn();
+						
+						
+					}
+				});	
+		}else{
+			$('#resultSearchVilleEvent').fadeOut();
+		}
+	});
+
+	$('.resultSearch').live('click', function(){
+
+		var id = $(this).attr('id');
+		$('#searchVilleEvent').val(id);
+		$('#resultSearchVilleEvent').fadeOut();
+	})
+
+	$('.container').live('click',function(){
+		$('#resultSearchVilleEvent').fadeOut();
+	})
+	$('.tchat').live('click',function(){
+		$('#resultSearchVilleEvent').fadeOut();
+	})
+	$('header').live('click',function(){
+		$('#resultSearchVilleEvent').fadeOut();
+	})
+
+	$('#validerTrie').live('click',function(){
+
+
+		$.ajax({
+				type: "post",
+				url: "../../controler/trieEvent.php",
+				data: {
+					'search' : $('#searchVilleEvent').val(),
+					'trier' : $('#trier').val(),
+					},
+					success: function(data){
+						$('#before').html(data);						
+					}
+				});	
+
+	})
+
+
+					$.urlParam = function(name){
 		    var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
 		    return results[1] || 0;
 		}
@@ -124,7 +192,7 @@ if(!empty($_SESSION['user'])){
 		
 			clearInterval(refreshMessage);
 	}
-		});
+});
 		</script>
 	</body>
 </html>

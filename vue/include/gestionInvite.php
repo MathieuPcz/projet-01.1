@@ -14,7 +14,8 @@ $result = $participant->selectAllParticipant($id_event,$status);
 	foreach ($result as $value) {
 		$id_user = $participant->verifParticipation($value['id_user'],$id_event);
 		if($id_user ==$value['id_user']){
-			if(!empty($user->selectAvatar($value['id_user']))){
+			$avatar = $user->selectAvatar($value['id_user']);
+			if(!empty($avatar)){
 				$avatar = $user->selectAvatar($value['id_user']);
 			}else{
 				$avatar = '<img src="../images/logo-header.png" alt="no-avatar" style="margin-top:10px; width:40px;">';
@@ -34,7 +35,8 @@ $result = $participant->selectAllParticipant($id_event,$status);
 	foreach ($result as $value) {
 		$id_user = $participant->verifParticipation($value['id_user'],$id_event);
 		if($id_user ==$value['id_user']){
-			if(!empty($user->selectAvatar($value['id_user']))){
+			$avatar = $user->selectAvatar($value['id_user']);
+			if(!empty($avatar)){
 				$avatar = $user->selectAvatar($value['id_user']);
 			}else{
 				$avatar = '<img src="../images/logo-header.png" alt="no-avatar" style="margin-top:10px; width:40px;">';
@@ -49,7 +51,8 @@ $result = $participant->selectAllParticipant($id_event,$status);
 	foreach ($result as $value) {
 		$id_user = $participant->verifParticipation($value['id_user'],$id_event);
 		if($id_user ==$value['id_user']){
-			if(!empty($user->selectAvatar($value['id_user']))){
+			$avatar = $user->selectAvatar($value['id_user']);
+			if(!empty($avatar)){
 				$avatar = $user->selectAvatar($value['id_user']);
 			}else{
 				$avatar = '<img src="../images/logo-header.png" alt="no-avatar" style="margin-top:10px; width:40px;">';

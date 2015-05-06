@@ -56,7 +56,7 @@ class Event{
 		$this->_dateEvent =$date->format('Y-m-d');
 		$this->_nameEvent = htmlspecialchars(trim(ucfirst($_POST['nameEvent'])));
 		$this->_lieuEvent = htmlspecialchars(trim(ucfirst($_POST['lieuEvent'])));
-		$this->_lieuEvent = htmlspecialchars(trim(ucfirst($_POST['villeEvent'])));
+		$this->_villeEvent= htmlspecialchars(trim(ucfirst($_POST['villeEvent'])));
 		$this->_place_user = htmlspecialchars(trim(ucfirst($_POST['place_user'])));
 		$this->_event_description = nl2br(htmlspecialchars(trim(ucfirst($_POST['event_description']))));
 
@@ -113,17 +113,7 @@ class Event{
 		return $this->_access;
 	}
 
-	public function selectEvent($id_event){
 
-		$this->_id = $id_event;
-
-		$select = $this->_bdd -> prepare('SELECT event FROM event WHERE id=:id');
-		$select->execute(array('id'=>$this->_id));
-		$result = $select -> fetch();
-		$this->_event = $result['event'];
-
-		return $this->_event;
-	}
 
 	public function selectNameEvent($id_event){
 
@@ -297,11 +287,51 @@ class Event{
 			return $select;
 		}
 
+
+
 	public function deleteEventProfil($id_user){
 		$this->_id_user = $id_user;
 		$suppr = $this->_bdd -> prepare('DELETE FROM event WHERE id_user=:id_user');
 		$suppr->execute(array('id_user'=>$this->_id_user));
 	}
+
+
+	public function selectAllEventByTrie($city,$typeEvent){
+		$this->_city = $city;
+		$this->_typeEvent = $typeEvent;
+		if($this->_typeEvent == "0"){
+			$select = $this->_bdd -> prepare('SELECT * FROM event WHERE villeEvent LIKE :city ORDER BY dateEvent');
+			$select->execute(array('city'=>$this->_city));
+
+			return $select;
+		}elseif (empty($city) AND empty($typeEvent)) {
+			$select = $this->_bdd -> prepare('SELECT * FROM event  ORDER BY dateEvent');
+			$select->execute(array());
+
+			return $select;
+		}
+		elseif(empty($city)){
+			$select = $this->_bdd -> prepare('SELECT * FROM event WHERE typeEvent=:typeEvent ORDER BY dateEvent');
+			$select->execute(array('typeEvent'=>$this->_typeEvent));
+
+			return $select;
+
+
+		}elseif(empty($typeEvent) AND !empty($city)){
+			$select = $this->_bdd -> prepare('SELECT * FROM event WHERE villeEvent=:city  ORDER BY dateEvent');
+			$select->execute(array('city'=>$this->_city));
+
+			return $select;
+		}else{
+			$select = $this->_bdd -> prepare('SELECT * FROM event WHERE villeEvent=:city AND  typeEvent=:typeEvent ORDER BY dateEvent');
+			$select->execute(array('city'=>$this->_city,
+									'typeEvent'=>$this->_typeEvent));
+
+			return $select;
+		}
+	}
+
+	
 }
 
 

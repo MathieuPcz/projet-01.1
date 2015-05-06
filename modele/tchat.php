@@ -45,7 +45,7 @@ class Tchat{
 
 		$this->_id_user = $id_user;
 		$this->_id_user2 = $id_user2;
-		$select = $this->_bdd -> prepare('SELECT id_user,id_user2,longname,message,DATE_FORMAT(dateMessage, "Le %d/%m/%Y à %H:%m") as dateMessage FROM tchat WHERE id_user=:id_user AND id_user2=:id_user2 ORDER BY id DESC');
+		$select = $this->_bdd -> prepare('SELECT id_user,id_user2,longname,message,DATE_FORMAT(dateMessage, "Le %d/%m/%Y à %H:%m") as dateMessage FROM tchat WHERE id_user=:id_user AND id_user2=:id_user2 ORDER BY id ');
 		$select->execute(array('id_user'=>$this->_id_user,
 								'id_user2'=>$this->_id_user2));
 

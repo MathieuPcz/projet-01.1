@@ -1,4 +1,9 @@
 $(document).ready(function(){
+	/*desactive session*/
+    function session(){
+        window.location="valide_dec.php"; //page de déconnexion
+    }
+    setTimeout("session()",600000); //ça fait bien 5min??? c'est pour le test
 
 	/*recherche barre du haut (amis + event)*/
 	$('#search').keyup(function(){
@@ -37,7 +42,7 @@ $(document).ready(function(){
 		$('.container').fadeIn(800);
 
 	});
-
+	
 	/*affiche user tchat */
 	setInterval(function() {
         $.ajax({
@@ -48,7 +53,9 @@ $(document).ready(function(){
 					},
 					success: function(data){
 						$('#refreshAmiTchat').html(data);
-						
+						if(!data){
+							$('.tchatsousCategories').append('Aucun utilisateur(public) inscrit');
+						}
 						
 					}
 				});	
@@ -75,6 +82,12 @@ $(document).ready(function(){
 			$('#fadeOutTchat').fadeIn();
 		}
 	})
+		/*refreshscrollbar pour qu'elle soit au bottom*/
+		var scrollBottomBar = function(){
+			var id = $('.messageUser').attr('id');
+			element = document.getElementById(id);
+			element.scrollTop = element.scrollHeight;
+		}
 
 		/*fait apparaitre fenetre discussion avec message de la personnne selectionner*/
 	$('.selectUser').live("click", function(){
@@ -93,6 +106,7 @@ $(document).ready(function(){
 					success: function(data){
 						$('.discut').html(data);
 						
+		
 						
 					}
 				});	
@@ -101,6 +115,10 @@ $(document).ready(function(){
 			
 		
 	});
+
+	$('.messageUser').live('click',function(){
+		clearInterval(scrollBottomBar);
+	})
 		var refreshMessage = (function(){
 				var id_user2 = ($('.newMessageTchat').attr("id"));
 						$.ajax({
@@ -111,11 +129,16 @@ $(document).ready(function(){
 							},
 							success: function(data){
 								$('.messageUser').html(data);
+								setInterval(scrollBottomBar,500);
+
 								
 							}
 						});
 				});
 		setInterval(refreshMessage, 300);
+
+
+
 
 	$('.croix').live('click', function(){
 		$('.discut').fadeOut();
@@ -138,6 +161,7 @@ $(document).ready(function(){
 					success: function(data){
 						
 						$('.newMessageTchat').val('');
+
 					}
 				});	
 	    }
@@ -157,7 +181,7 @@ $(document).ready(function(){
 					}
 				});	
 	})
-		
+
 	/*recharge les notifications*/
 	setInterval(function(){
 

@@ -15,7 +15,7 @@ session_start();
 		$connect = '<div class="connect" style="margin-top:5px;"></div>';
 	}
 
-	echo '<div class="titleUser">'.$connect.'<strong>'.$name.'</strong><img src="../images/croix.png" class="croix" alt="close"></div>
+	echo '<div class="titleUser">'.$connect.'<a href="user.php?id='.$id_user2.'"><strong>'.$name.'</strong></a><img src="../images/croix.png" class="croix" alt="close"></div>
 			<div class="messageUser" id="scroll">';
 			
 	

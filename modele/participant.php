@@ -63,6 +63,15 @@ class Participant{
 
 	}
 
+	public function selectAllIdEventByUser($id_user,$status){
+		$this->_id_user = $id_user;
+		$this->_status =$status;
+		$select = $this->_bdd -> prepare('SELECT * FROM participant WHERE id_user=:id_user AND status=:status');
+		$select -> execute(array('id_user'=>$this->_id_user,
+								'status'=>$this->_status));
+		return $select;
+	}
+
 
 	public function verifParticipation($id_user,$id_event){
 

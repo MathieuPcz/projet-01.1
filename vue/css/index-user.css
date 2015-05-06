@@ -1,30 +1,18 @@
-.container{
-	width: 76%;
-	padding: 5%;
-	padding-left: 1%;
-}
-.container h2{
-	padding: 1%;
-	padding-top: 3%;
-}
+
 .before{
 	display: inline-block;
-	background-color: rgba(0,0,0,0.8);
+	background-color: rgba(0,0,0,0.6);
 	vertical-align: top;
 	width: 16%;
 	height: 190px;
 	text-align: center;
 	margin: 20px;
-	moz-box-shadow: 10px 10px 15px 0px black;
-	-webkit-box-shadow: 10px 10px 15px 0px black;
-	-o-box-shadow: 10px 10px 15px 0px black;
-	box-shadow: 10px 10px 15px 0px black;
 	padding-bottom: 1%;
 	border-radius: 5px;
 	overflow: hidden;
 }
 .before img{
-	width: 100%;
+	height: 110%;
 	z-index: -10;
 }
 .imageBefore{
@@ -42,32 +30,61 @@
 	font-size: 0.8em;
 }
 
-
-@media all and (max-width: 650px){
-	.container{
-		padding-top: 20%;
-	}.after,.before{
-		margin:1%;
-	}
-	#mainMenu img{
-		width: 35%;
-	}
-	
+#cadre{
+	background-color: rgba(0,0,0,0.8);
+	border-radius: 5px;
+	width: 80%;
+	padding-left: 1%;
+	margin: auto;
+		moz-box-shadow: 10px 10px 15px 0px black;
+	-webkit-box-shadow: 10px 10px 15px 0px black;
+	-o-box-shadow: 10px 10px 15px 0px black;
+	box-shadow: 10px 10px 15px 0px black;
 }
-@media all and (min-width: 650px) and (max-width: 800px){
-	.after,.before{
-		margin:1%;
-	}
-	#mainMenu img{
-		width: 35%;
-	}
+#contentEvent input,#contentEvent select{
+	height: 30px;
+	border: none;
+	margin: 1%;
 }
-@media all and (min-width: 800px) and (max-width: 1200px){
-	
-	.after,.before{
-		margin:1%;
-	}
-	#mainMenu img{
-		width: 25%;
-	}
+#contentEvent input{
+	border-radius: 2px;
+	width: 40%;
+	text-align: center;
+}
+#newEvent{
+	float: right;
+	margin-right: 5%;
+}
+#resultSearchVilleEvent{
+	width: 20%;
+	position: absolute;
+	overflow: hidden;
+	border:none;
+	margin-top: -7px;
+	margin-left: 10%;
+	border-bottom-right-radius:2px;
+	border-bottom-left-radius:2px;
+	display: none;
+	text-align: center;
+}
+#resultSearchVilleEvent ul{
+	list-style-type: none;
+}
+#resultSearchVilleEvent li{
+	padding: 5px;
+	width: 100%;
+	height: 30px;
+	padding-top: 20px;
+	float: right;
+	border-bottom:1px solid #E5E5E5;
+	background-color: white;
+}
+#resultSearchVilleEvent a{
+	color: #000F1C;
+	width: 100%;
+	font-weight: bold;
+}
+#resultSearchVilleEvent li:hover{
+	background-color: #F6F7F8;
+	color: #000F1C;
 }

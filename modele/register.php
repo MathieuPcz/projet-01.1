@@ -56,6 +56,18 @@ class User{
 		return $this->_password;
 	}
 
+	public function verifCity($ville){
+
+		$this->_city = $ville;
+
+		$select = $this->_bdd->prepare('SELECT ville_nom_simple FROM villes_france_free WHERE ville_nom_simple LIKE :ville_nom_simple');
+		$select->execute(array('ville_nom_simple' => $this->_city.'%'));
+		$donnee = $select->fetch();
+
+		$this->_city = $donnee['ville_nom_simple'];
+		return $this->_city;
+	}
+
 	public function insertUser(){
 
 		$this->_longname = htmlspecialchars(trim(ucfirst($_POST['firstname']))).' '.htmlspecialchars(trim(ucfirst($_POST['name'])));
@@ -229,7 +241,8 @@ class User{
 		$this->_avatar = $result['avatar'];
 
 		if(!empty($this->_avatar)){
-			return '	<img src="../images/user/'.$this->_avatar.'"  alt="avatar" width="40px">';
+			return '<img src="../images/user/'.$this->_avatar.'" alt="imageProfil">' ;
+
 		}else{
 			
 		}

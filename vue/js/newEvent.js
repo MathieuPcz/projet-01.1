@@ -104,7 +104,7 @@ $(document).ready(function(){
 			'typeEvent' : $('#typeEvent').val(),
 			'heure_deb_event' : $('#heure_deb_event').val(),
 			'access' : $('#access').val(),
-			'event' : $('#event').val(),
+			'villeEvent' : $('#villeEvent').val(),
 			'nameEvent' : $('#nameEvent').val(),
 			'dateEvent' : $('#dateEvent').val(),
 			'lieuEvent' : $('#lieuEvent').val(),

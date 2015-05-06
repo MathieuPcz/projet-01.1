@@ -16,6 +16,7 @@ body{
 a{
 	text-decoration: none;
 	color:white;
+
 }
 h1,h2,h3{
 	text-shadow: 0 1px 0 #000;
@@ -25,7 +26,7 @@ h1,h2,h3{
 	background-image:-webkit-linear-gradient(330deg, #000F1C, #000F1C);
 	background-image:-o-linear-gradient(330deg, #000F1C, #000F1C);
 	background-image:linear-gradient(60deg, #000F1C, #000F1C);
-	height: 70px;
+	height: 50px;
 	position: fixed;
 	z-index: 100;
 	moz-box-shadow: 10px 10px 15px 0px black;
@@ -36,35 +37,11 @@ h1,h2,h3{
 }
 #mainMenu img{
 	float: left;
-	width: 15%;
-	margin-top: 10px;
+	height: 50px;
+	margin-top: 5px;
 	margin-left: 5%;
 }
-#mainMenu form{
-	float: right;
-	margin-right: 2%;
-	text-align: right;
-}
-#mainMenu input{
-	border:none;
-	height: 30px;
-	width: 200px;
-	margin-top: 5px;
-	border-radius: 2px;
-	text-align: center;
-}
-#mainMenu button{
-	height:30px;
-	width:80px;
-	background-color:#9bbef3;
-    font-family: calibri;
-    color:#000F1C;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    border-radius: 2px;
-}
-#mainMenu button:hover,#register button:hover{
+button:hover,button:hover{
 	background-color:rgba(0,0,0,0);
 	color: white;
 	-moz-transition: all .5s;
@@ -72,22 +49,21 @@ h1,h2,h3{
 	-o-transition: all .5s;
 	transition: all .5s;
 }
-#mainMenu a{
-	display: inline-block;
-	margin-right: 20%;
-}
 .content{
 	padding-top: 10%;
 }
 #register{
 	background-color: rgba(0,0,0,0.8);
 	width: 35%;
-	display: inline-block;
+	float: left;
 	margin-left: 10%;
 	border-radius: 5px;
 	text-align: center;
 	padding-top: 1%;
 	padding-bottom: 1%;
+}
+#register a{
+	display: block;
 }
 #register form{
 	padding: 1%;
@@ -105,7 +81,7 @@ h1,h2,h3{
 	border-radius: 2px;
 	text-align: center;
 }
-#register button{
+button{
 	height:30px;
 	width:80px;
 	background-color:#9bbef3;
@@ -117,67 +93,78 @@ h1,h2,h3{
     border-radius: 2px;
     margin-top: 2%;
 }
-#event{
-	width: 40%;
-	margin-left: 5%;
-	display: inline-block;
-	vertical-align: top;
-	text-align: center;
-	
-}
-.before{
-	background-color:rgba(0,0,0,0.8);
-	display: inline-block;
-	width: 25%;
-	margin: 20px;
+#troisDernierEvent{
+	background-color: rgba(0,0,0,0.8);
+	border-radius: 5px;
+	width: 35%;
+	float: right;
+	margin-right: 10%;
 	moz-box-shadow: 10px 10px 15px 0px black;
 	-webkit-box-shadow: 10px 10px 15px 0px black;
 	-o-box-shadow: 10px 10px 15px 0px black;
 	box-shadow: 10px 10px 15px 0px black;
+	text-align: center;
+}
+#connexion{
+	background-color: rgba(0,0,0,0.8);
+	border-radius: 5px;
+	width: 31%;
+	float: right;
+	margin-right: 10%;
+	padding:2%;
+	padding-bottom: 0;
+	padding-top: 1%;
+	moz-box-shadow: 10px 10px 15px 0px black;
+	-webkit-box-shadow: 10px 10px 15px 0px black;
+	-o-box-shadow: 10px 10px 15px 0px black;
+	box-shadow: 10px 10px 15px 0px black;
+	text-align: center;
+}
+#connexion a{
+	margin:3%;
+}
+#connexion input{
+	width: 60%;
+	margin-left: 20%;
+	height: 30px;
+	border:none;
+	margin-top: 1%;
+	border-radius: 2px;
+	text-align: center;
+	display: block;
+}
+.event{
+	display: inline-block;
+	background-color: rgba(0,0,0,0.6);
+	vertical-align: top;
+	width: 30%;
+	height: 190px;
+	text-align: center;
+	margin: 20px;
 	padding-bottom: 1%;
 	border-radius: 5px;
+	overflow: hidden;
 }
-.before img{
+.event img{
+	height: 110%;
+	z-index: -10;
+}
+.imgEvent{
+	height: 125px;
+	overflow: hidden;
 	width: 100%;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
 }
-.before h3{
-	font-size: 0.8em;
+.imgDefault{
+	height: 100px;
 }
-.before strong{
-	display: block;
-	width: 100%;
-	text-align: center;
+.event h3{
+	font-size: 1em;
+}
+.event strong{
 	font-size: 0.8em;
 }
 
-.after{
-	background-color: rgba(0,0,0,0.8);
-	display: inline-block;
-	width: 25%;
-	margin: 20px;
-	moz-box-shadow: 10px 10px 15px 0px black;
-	-webkit-box-shadow: 10px 10px 15px 0px black;
-	-o-box-shadow: 10px 10px 15px 0px black;
-	box-shadow: 10px 10px 15px 0px black;
-	padding-bottom: 1%;
-	border-radius: 5px;
-}
-.after img{
-	width: 100%;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-}
-.after h3{
-	font-size: 0.8em;
-}
-.after strong{
-	display: block;
-	width: 100%;
-	text-align: center;
-	font-size: 0.8em;
-}
+
 #loginForm{
 	display: inline-block;
 	margin-right: 20%;	
@@ -202,87 +189,3 @@ input::-webkit-input-placeholder{
 	color:black;
 }
 
-@media all and (max-width: 650px){
-
-	#mainMenu{
-		height: 30%;
-		overflow: visible;
-		text-align: center;
-		padding-top: 1%;
-	}
-	#mainMenu img{
-		float: none;
-		width:250px;
-	}
-	#mainMenu form{
-		float: none;
-		display: block;
-		width: 100%;
-		text-align: center;
-	}
-	#mainMenu button{
-		margin-top: 2%;
-	}
-	#mainMenu input{
-		width: 100%;
-	}
-	#mainMenu a{
-		display: none;
-	}
-	#register{
-		width: 100%;
-		margin-left: 0;
-	}
-	#event{
-		display: none;
-	}
-	.content{
-		padding-top: 250px;
-	}
-	footer{
-		position: relative;
-		margin-top: 5%;
-		height: 5%;
-	}
-	
-}
-@media all and (min-width: 650px) and (max-width: 800px){
-	#mainMenu img{
-		margin-top: 15px;
-	}
-	input{
-		width: 90%;
-	}
-	.content{
-		padding-top: 130px;
-	}
-}
-@media all and (min-width: 650px) and (max-width: 1200px){
-	#mainMenu img{
-		margin-top: 10px;
-	}
-	input{
-		width: 90%;
-	}
-	#event{
-	width: 48%;
-	margin-top: 5%;
-	display: inline-block;
-	vertical-align: top;
-	text-align: center;
-	
-}
-	.before{
-		width:25%;
-		margin: 0;
-		margin-bottom: 2%;
-		margin-right: 15px;
-	}
-	.after{
-		width:25%;
-		margin: 0;
-		margin-right: 15px;
-		margin-top: 2%;
-		margin-bottom: 2%;
-	}
-}

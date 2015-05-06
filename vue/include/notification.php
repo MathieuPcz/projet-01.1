@@ -1,7 +1,7 @@
 <section id="allnotif">
 <img src="../images/logo-header.png" alt="création" style="width:50%;">
 	<div id="sectionNotif">
-
+	 <button id="fermerNotif">Fermer</button>
 	<?php 
 	$count = $notification->countAllNotif($_SESSION['user']);
 	$notif = $notification->selectAllNotif($_SESSION['user']);
@@ -17,7 +17,7 @@
 
 	 ?>
 	 <br>
-	 <button id="fermerNotif">Fermer</button>
+	
 
 	</div>
 </section>

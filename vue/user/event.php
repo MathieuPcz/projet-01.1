@@ -25,6 +25,7 @@ if(!empty($_SESSION['user'])){
 	<meta charset="utf-8">
 	<title>Before | After</title>
 	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/tchat.css">
 	<link rel="stylesheet" href="../css/event.css">
 	<link rel="stylesheet" href="../css/newEvent.css">
 </head>
@@ -45,7 +46,7 @@ if(!empty($_SESSION['user'])){
 		</div>
 	</header>
 	<div class="tchat">
-		<?php include_once '../include/discussion.php' ?>
+		<?php include_once '../include/discussion.php'; ?>
 		</div>
 		<div class="container">
 			<div id="baniere">
@@ -91,7 +92,12 @@ if(!empty($_SESSION['user'])){
 					<p>Se déroulera le <strong><?php echo $event->selectDateEvent($id_event); ?> à <?php echo $event->selectHeure_deb_event($id_event); ?></strong></p>
 					<p>Acceptation :<strong> <?php echo $event->selectAccess($id_event); ?></strong></p>
 					<p>Plade disponnible au public : <strong><?php echo $event->selectPlaceUser($id_event); ?></strong></p>
-					<p>Nombre de personnes invitées : <strong><?php echo $participant->countAllParticipant($id_event); ?></strong></p><br>
+					<p>Nombre de personnes invitées : <strong><?php echo $participant->countAllParticipant($id_event); ?></strong></p>
+					<p>Adresse : <strong><?php if($participant->verifEtatParticipation($_SESSION['user'],$_GET['id'],1)==$_SESSION['user']){
+							echo $event->selectLieuEvent($_GET['id']);
+						}else{
+							echo 'vous devez participez à l\'événement pour acceder à l\'adresse';
+							} ?></strong></p><br>
 				</div>
 				<p><strong>Personnes dans la file d'attente : </strong></p>
 				<p> 
@@ -110,7 +116,8 @@ if(!empty($_SESSION['user'])){
 									exit();
 								}else{
 								$user_id = $value['id_user'];
-								if(!empty($user->selectAvatar($user_id))){
+								$avatar = $user->selectAvatar($user_id);
+								if(!empty($avatar)){
 									echo '<div class="avatar"><a target="_blank" href="user.php?id='.$user_id.'">'.$user->selectAvatar($user_id).'</a></div>';
 								}else{
 									echo '<div class="no-avatar"><a target="_blank" href="user.php?id='.$user_id.'"><p>'.$user->selectLongname($user_id).'</p></a></div>';
@@ -125,38 +132,7 @@ if(!empty($_SESSION['user'])){
 				<br>	
 			</div>
 			<div id="description">
-				<p><strong>Description : </strong><?php echo $event->selectDescription($id_event); ?></p>
-				<br>
-				<p><strong>Amis en attente :</strong></p>
-				<p>
-					<div class="nbParticipant">
-						<?php 
-						$id_event = $_GET['id'];
-						$status = 2;
-						$nbParticipant = $participant -> countParticipant($id_event,$status);
-						echo $nbParticipant;
-						?>
-					</div>
-					<?php 
-						$public = $participant->selectAllParticipant($id_event,$status);
-						foreach ($public as $value) {
-							if($i>10){
-									exit();
-								}else{
-								$user_id = $value['id_user'];
-								if(!empty($user->selectAvatar($user_id))){
-									echo '<div class="avatar"><a target="_blank" href="user.php?id='.$user_id.'">'.$user->selectAvatar($user_id).'</a></div>';
-								}else{
-									echo '<div class="no-avatar"><a target="_blank" href="user.php?id='.$user_id.'"><p>'.$user->selectLongname($user_id).'</p></a></div>';
-								}
-								
-								}
-								$i++;
-						}
-					
-					?>
-				</p><br>
-				<div id="participantActuel"><p><strong>Participants actuels :</strong></p>
+			<div id="participantActuel"><p><strong>Participants actuels :</strong></p>
 				<p>
 					<div class="nbParticipant">
 						<?php 
@@ -173,7 +149,8 @@ if(!empty($_SESSION['user'])){
 									exit();
 								}else{
 								$user_id = $value['id_user'];
-								if(!empty($user->selectAvatar($user_id))){
+								$avatar = $user->selectAvatar($user_id);
+								if(!empty($avatar)){
 									echo '<div class="avatar"><a target="_blank" href="user.php?id='.$user_id.'">'.$user->selectAvatar($user_id).'</a></div>';
 								}else{
 									echo '<div class="no-avatar"><a target="_blank" href="user.php?id='.$user_id.'"><p>'.$user->selectLongname($user_id).'</p></a></div>';
@@ -184,9 +161,51 @@ if(!empty($_SESSION['user'])){
 						}
 					
 					?>
-				</p>
+				</p><br>
+	
+				<div id="amisAttente">
+					<p><strong>Invités :</strong></p>
+				<p>
+					<div class="nbParticipant">
+						<?php 
+						$id_event = $_GET['id'];
+						$status = 2;
+						$nbParticipant = $participant -> countParticipant($id_event,$status);
+						echo $nbParticipant;
+						?>
+					</div>
+					<?php 
+						$public = $participant->selectAllParticipant($id_event,$status);
+						foreach ($public as $value) {
+							if($i>10){
+									exit();
+								}else{
+								$user_id = $value['id_user'];
+								$avatar = $user->selectAvatar($user_id);
+								if(!empty($avatar)){
+									echo '<div class="avatar"><a target="_blank" href="user.php?id='.$user_id.'">'.$user->selectAvatar($user_id).'</a></div>';
+								}else{
+									echo '<div class="no-avatar"><a target="_blank" href="user.php?id='.$user_id.'"><p>'.$user->selectLongname($user_id).'</p></a></div>';
+								}
+								
+								}
+								$i++;
+						}
+					
+					?>
+				</p><br>
 				</div>
+				
+				<div id="descriptionEvent">
+				<p><strong>Description : </strong><?php echo $event->selectDescription($id_event); ?></p>
+				</div>
+				<br>
+				</div>
+			<div id="commentEvent">
+				<input type="text" placeholder="Exprimez vous...">
 			</div>
+			</div>
+
 		</div>
 		<div id="delete">
 			<strong>Votre événement va être supprimé, voulez vous continuer ?</strong>
@@ -201,7 +220,6 @@ if(!empty($_SESSION['user'])){
 		<input type="file" id="affiche">
 		<?php include '../include/notification.php'; ?>
 		<?php include '../include/inviteFriend.php'; ?>
-		<?php include '../include/formEvent.php'; ?>
 		<?php include '../include/modifEvent.php'; ?>
 		<?php include '../include/gestionInvite.php'; ?>
 		<?php include '../include/acceptUserPublic.php'; ?>
